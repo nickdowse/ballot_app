@@ -3,11 +3,11 @@ class UsersController < ApplicationController
   before_action :admin_only, :except => :show
 
   def index
-    @users = User.all
+    @users = current_user.organisation.users
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = current_user.organisation.users.find(params[:id])
     unless current_user.admin?
       unless @user == current_user
         redirect_to :back, :alert => "Access denied."

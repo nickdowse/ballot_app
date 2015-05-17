@@ -10,14 +10,26 @@ class ApplicationController < ActionController::Base
       @organisation = current_user.organisation
       return @organisation
     else
-      @organisation = Organisation.find(params[controller_name == 'organisations' ? :id : :organisation_id])
-      return @organisation
+      org = get_org_from_params
+      if org.present?
+        @organisation = org
+        return @organisation
+      end
     end
   end
   helper_method :current_organisation # Make this method visible to views as well
 
 
   protected
+    def get_org_from_params
+      id = params[controller_name == 'organisations' ? :id : :organisation_id]
+      if id.present?
+        Organisation.find(id)
+      else
+        nil
+      end
+    end
+
     def configure_permitted_parameters
       devise_parameter_sanitizer.for(:sign_up) << :name
       devise_parameter_sanitizer.for(:sign_up) << :organisation_id
