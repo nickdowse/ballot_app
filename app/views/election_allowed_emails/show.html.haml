@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Email:
+  = @election_allowed_email.email
+%p
+  %b Created at:
+  = @election_allowed_email.created_at
+%p
+  %b Election:
+  = @election_allowed_email.election_id
+%p
+  %b Organisation:
+  = @election_allowed_email.organisation_id
+
+= link_to 'Edit', edit_election_election_allowed_email_path(@election, @election_allowed_email)
+\|
+= link_to 'Back', election_election_allowed_emails_path(@election)

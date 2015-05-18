@@ -1,6 +1,5 @@
 class AllowedEmailsController < ApplicationController
   before_action :set_allowed_email, only: [:show, :edit, :update, :destroy]
-
   respond_to :html
 
   def index
@@ -25,6 +24,7 @@ class AllowedEmailsController < ApplicationController
   end
 
   private
+
     def set_allowed_email
       @allowed_email = AllowedEmail.find(params[:id])
     end

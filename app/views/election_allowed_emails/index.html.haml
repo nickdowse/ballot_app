@@ -1,0 +1,28 @@
+%h1 Listing election_allowed_emails
+
+%table
+  %thead
+    %tr
+      %th Email
+      %th Created at
+      %th Election
+      %th Organisation
+      %th
+      %th
+      %th
+
+  %tbody
+    - @election_allowed_emails.each do |election_allowed_email|
+      %tr
+        %td= election_allowed_email.email
+        %td= election_allowed_email.created_at
+        %td= election_allowed_email.election_id
+        %td= election_allowed_email.organisation_id
+        %td= link_to 'Show', election_election_allowed_email_path(@election.id, election_allowed_email)
+        - if current_user.admin?
+          %td= link_to 'Edit', edit_election_election_allowed_email_path(@election, election_allowed_email)
+          %td= link_to 'Destroy', election_election_allowed_email_path(@election.id, election_allowed_email), :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Election allowed email', new_election_election_allowed_email_path(@election)

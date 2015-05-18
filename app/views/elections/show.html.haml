@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @election.title
+%p
+  %b Created at:
+  = @election.created_at
+%p
+  %b Created by:
+  = @election.created_by
+
+= link_to 'Edit', edit_election_path(@election)
+\|
+= link_to 'Back', elections_path

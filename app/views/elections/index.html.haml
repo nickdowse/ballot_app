@@ -1,0 +1,26 @@
+%h1 Listing elections
+
+%table
+  %thead
+    %tr
+      %th Title
+      %th Created at
+      %th Created by
+      %th
+      %th
+      %th
+
+  %tbody
+    - @elections.each do |election|
+      %tr
+        %td= election.title
+        %td= election.created_at
+        %td= election.created_by
+        %td= link_to 'Show', election
+        - if current_user.organisation.is_admin?(current_user)
+          %td= link_to 'Edit', edit_election_path(election)
+          %td= link_to 'Destroy', election, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+- if current_user.organisation.is_admin?(current_user)
+  = link_to 'New Election', new_election_path

@@ -1,0 +1,9 @@
+%h1 Editing election
+
+= render 'form'
+
+= link_to 'Show', @election
+\|
+= link_to 'Back', elections_path
+\|
+= link_to 'Allowed emails', election_election_allowed_emails_path(@election)
