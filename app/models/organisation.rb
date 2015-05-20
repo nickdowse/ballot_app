@@ -2,6 +2,7 @@ class Organisation < ActiveRecord::Base
   has_many :users
   has_many :allowed_emails
   has_many :elections
+  has_many :candidates
 
   def admins
     self.users.where(role: 1)

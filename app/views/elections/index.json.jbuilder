@@ -1,4 +1,4 @@
 json.array!(@elections) do |election|
   json.extract! election, :id, :title, :created_at, :created_by
-  json.url election_url(election, format: :json)
+  json.url organisation_election_url(current_organisation, election, format: :json)
 end

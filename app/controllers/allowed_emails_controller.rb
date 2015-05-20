@@ -8,7 +8,7 @@ class AllowedEmailsController < ApplicationController
   end
 
   def create
-    @allowed_email = AllowedEmail.new(allowed_email_params)
+    @allowed_email = current_organisation.allowed_emails.new(allowed_email_params)
     flash[:notice] = 'Email was successfully created.' if @allowed_email.save
     redirect_to edit_organisation_path(current_organisation)
   end
@@ -26,11 +26,10 @@ class AllowedEmailsController < ApplicationController
   private
 
     def set_allowed_email
-      @allowed_email = AllowedEmail.find(params[:id])
+      @allowed_email = current_organisation.allowed_emails.find(params[:id])
     end
 
     def allowed_email_params
-      pp params
       params.require(:allowed_email).permit(:email, :organisation_id)
     end
 end

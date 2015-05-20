@@ -1,0 +1,25 @@
+%h1 Listing candidates
+
+%table
+  %thead
+    %tr
+      %th Name
+      %th Organisation
+      %th Description
+      %th
+      %th
+      %th
+
+  %tbody
+    - @candidates.each do |candidate|
+      %tr
+        %td= candidate.name
+        %td= candidate.organisation_id
+        %td= candidate.description
+        %td= link_to 'Show', [current_organisation, @election, candidate]
+        %td= link_to 'Edit', edit_organisation_election_candidate_path(current_organisation, @election, candidate)
+        %td= link_to 'Destroy', [current_organisation, @election, candidate], :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Candidate', new_organisation_election_candidate_path(current_organisation, @election, @election.candidates.new)

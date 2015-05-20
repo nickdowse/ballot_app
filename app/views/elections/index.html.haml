@@ -16,11 +16,11 @@
         %td= election.title
         %td= election.created_at
         %td= election.created_by
-        %td= link_to 'Show', election
+        %td= link_to 'Show', [current_organisation, election]
         - if current_user.organisation.is_admin?(current_user)
-          %td= link_to 'Edit', edit_election_path(election)
-          %td= link_to 'Destroy', election, :method => :delete, :data => { :confirm => 'Are you sure?' }
+          %td= link_to 'Edit', edit_organisation_election_path(current_organisation, election)
+          %td= link_to 'Destroy', [current_organisation, election], :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 - if current_user.organisation.is_admin?(current_user)
-  = link_to 'New Election', new_election_path
+  = link_to 'New Election', new_organisation_election_path(current_organisation)

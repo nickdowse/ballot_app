@@ -10,6 +10,8 @@
   %b Created by:
   = @election.created_by
 
-= link_to 'Edit', edit_election_path(@election)
+= link_to 'Edit', edit_organisation_election_path(current_organisation, @election)
 \|
-= link_to 'Back', elections_path
+= link_to 'Back', organisation_elections_path(current_organisation)
+\|
+= link_to 'Candidates', organisation_election_candidates_path(current_organisation, @election)

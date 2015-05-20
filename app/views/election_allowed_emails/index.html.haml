@@ -18,11 +18,11 @@
         %td= election_allowed_email.created_at
         %td= election_allowed_email.election_id
         %td= election_allowed_email.organisation_id
-        %td= link_to 'Show', election_election_allowed_email_path(@election.id, election_allowed_email)
+        %td= link_to 'Show', organisation_election_election_allowed_email_path(current_organisation, @election.id, election_allowed_email)
         - if current_user.admin?
-          %td= link_to 'Edit', edit_election_election_allowed_email_path(@election, election_allowed_email)
-          %td= link_to 'Destroy', election_election_allowed_email_path(@election.id, election_allowed_email), :method => :delete, :data => { :confirm => 'Are you sure?' }
+          %td= link_to 'Edit', edit_organisation_election_election_allowed_email_path(current_organisation, @election, election_allowed_email)
+          %td= link_to 'Destroy', organisation_election_election_allowed_email_path(current_organisation, @election.id, election_allowed_email), :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 
-= link_to 'New Election allowed email', new_election_election_allowed_email_path(@election)
+= link_to 'New Election allowed email', new_organisation_election_election_allowed_email_path(current_organisation, @election)

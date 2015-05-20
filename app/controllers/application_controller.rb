@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   def current_organisation
     if user_signed_in?
       return @organisation if @organisation.present?
-      @organisation = current_user.organisation
+      @organisation = current_user.organisations.find(params[controller_name == 'organisations' ? :id : :organisation_id]) rescue @organisation = current_user.organisation
       return @organisation
     else
       org = get_org_from_params

@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @candidate.name
+%p
+  %b Organisation:
+  = @candidate.organisation_id
+%p
+  %b Description:
+  = @candidate.description
+
+= link_to 'Edit', edit_organisation_election_candidate_path(current_organisation, @election, @candidate)
+\|
+= link_to 'Back', organisation_election_candidates_path(current_organisation, @election)

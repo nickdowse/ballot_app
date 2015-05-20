@@ -13,6 +13,6 @@
   %b Organisation:
   = @election_allowed_email.organisation_id
 
-= link_to 'Edit', edit_election_election_allowed_email_path(@election, @election_allowed_email)
+= link_to 'Edit', edit_organisation_election_election_allowed_email_path(current_organisation, @election, @election_allowed_email)
 \|
-= link_to 'Back', election_election_allowed_emails_path(@election)
+= link_to 'Back', organisation_election_election_allowed_emails_path(current_organisation, @election)

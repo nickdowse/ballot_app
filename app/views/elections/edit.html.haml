@@ -2,8 +2,8 @@
 
 = render 'form'
 
-= link_to 'Show', @election
+= link_to 'Show', [current_organisation, @election]
 \|
-= link_to 'Back', elections_path
+= link_to 'Back', organisation_elections_path(current_organisation)
 \|
-= link_to 'Allowed emails', election_election_allowed_emails_path(@election)
+= link_to 'Allowed emails', organisation_election_election_allowed_emails_path(current_organisation, @election)

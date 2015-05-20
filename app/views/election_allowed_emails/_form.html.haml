@@ -1,4 +1,4 @@
-= form_for [@election, @election_allowed_email] do |f|
+= form_for [current_organisation, @election, @election_allowed_email] do |f|
   - if @election_allowed_email.errors.any?
     #error_explanation
       %h2= "#{pluralize(@election_allowed_email.errors.count, "error")} prohibited this election_allowed_email from being saved:"

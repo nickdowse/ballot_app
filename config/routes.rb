@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
 
-  resources :elections do
-    resources :election_allowed_emails
-  end
 
   resources :organisations do
     resources :allowed_emails
+    resources :elections do
+      resources :election_allowed_emails
+      resources :candidates
+    end
   end
 
   root to: 'visitors#index'
