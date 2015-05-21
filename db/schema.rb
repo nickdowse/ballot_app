@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150520185010) do
+ActiveRecord::Schema.define(version: 20150520192622) do
 
   create_table "allowed_emails", force: :cascade do |t|
     t.string  "email",           limit: 255
@@ -21,13 +21,6 @@ ActiveRecord::Schema.define(version: 20150520185010) do
   create_table "candidate_elections", id: false, force: :cascade do |t|
     t.integer  "candidate_id", limit: 4
     t.integer  "election_id",  limit: 4
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "candidate_votes", id: false, force: :cascade do |t|
-    t.integer  "candidate_id", limit: 4
-    t.integer  "vote_id",      limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -83,5 +76,15 @@ ActiveRecord::Schema.define(version: 20150520185010) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "votes", force: :cascade do |t|
+    t.integer  "value",           limit: 4
+    t.integer  "organisation_id", limit: 4
+    t.integer  "election_id",     limit: 4
+    t.integer  "user_id",         limit: 4
+    t.text     "history",         limit: 65535
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
 
 end

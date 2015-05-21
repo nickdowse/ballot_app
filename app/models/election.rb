@@ -5,6 +5,8 @@ class Election < ActiveRecord::Base
   has_many :candidate_elections
   has_many :candidates, through: :candidate_elections
 
+  has_many :votes
+
   # Active record hooks
   before_create :set_defaults
 

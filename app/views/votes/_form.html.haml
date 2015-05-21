@@ -1,0 +1,20 @@
+= form_for [current_organisation, @election, @vote] do |f|
+  - if @vote.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@vote.errors.count, "error")} prohibited this vote from being saved:"
+      %ul
+        - @vote.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    -# TODO turn this into a radio button
+    -# TODO setting for admins to select how many candidates a user can vote for.
+    = f.number_field :candidate_id
+
+    -# TODO Check these in controller
+    = f.hidden_field :organisation_id, value: current_organisation.id
+    = f.hidden_field :election_id, value: @election.id
+    = f.hidden_field :user_id, value: current_user.id
+    = f.datetime_select :date_voted
+  .actions
+    = f.submit 'Save'

@@ -1,0 +1,7 @@
+%h1 Editing vote
+
+= render 'form'
+
+= link_to 'Show', [current_organisation, @election, @vote]
+\|
+= link_to 'Back', organisation_election_votes_path(current_organisation, @election)

@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Value:
+  = @vote.value
+%p
+  %b Election:
+  = @vote.election_id
+%p
+  %b User:
+  = current_organisation.users.find(@vote.user_id).email
+%p
+  %b Date voted:
+  = @vote.date_voted
+%p
+  %b History:
+  = @vote.history
+
+= link_to 'Edit', edit_vote_path(@vote)
+\|
+= link_to 'Back', votes_path
