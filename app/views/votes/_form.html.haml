@@ -15,6 +15,5 @@
     = f.hidden_field :organisation_id, value: current_organisation.id
     = f.hidden_field :election_id, value: @election.id
     = f.hidden_field :user_id, value: current_user.id
-    = f.datetime_select :date_voted
   .actions
     = f.submit 'Save'

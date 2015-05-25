@@ -1,4 +1,4 @@
-%h1 Listing elections
+%h1 Elections you can vote in
 
 %table
   %thead
@@ -17,10 +17,10 @@
         %td= election.created_at
         %td= election.created_by
         %td= link_to 'Show', [current_organisation, election]
-        - if current_user.organisation.is_admin?(current_user)
+        - if current_organisation.is_admin?(current_user)
           %td= link_to 'Edit', edit_organisation_election_path(current_organisation, election)
           %td= link_to 'Destroy', [current_organisation, election], :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
-- if current_user.organisation.is_admin?(current_user)
+- if current_organisation.is_admin?(current_user)
   = link_to 'New Election', new_organisation_election_path(current_organisation)

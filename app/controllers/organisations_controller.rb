@@ -31,6 +31,10 @@ class OrganisationsController < ApplicationController
     respond_with(@organisation)
   end
 
+  def users
+    @users = current_organisation.users
+  end
+
   def destroy
     @organisation.destroy
     respond_with(@organisation)

@@ -1,0 +1,15 @@
+.row
+  #page_title
+    %h1 Users
+    %h2= @organisation.name
+
+.row
+  .small-12.columns
+    %table
+      %thead
+        %tr
+          %th{width: '40%'} User
+      %tbody
+        - @organisation.users.sort_by{|u| u.created_at}.each do |user|
+          %tr
+            = render user

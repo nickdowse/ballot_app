@@ -9,10 +9,6 @@ class VotesController < ApplicationController
     respond_with(@votes)
   end
 
-  def show
-    respond_with(@vote)
-  end
-
   def new
     @vote = Vote.new
     respond_with(@vote)
@@ -23,18 +19,25 @@ class VotesController < ApplicationController
 
   def create
     @vote = Vote.new(vote_params)
-    @vote.save
-    respond_with(@vote)
+    @vote.organisation_id = current_organisation.id
+    @vote.election_id = @election.id
+    @vote.user_id = current_user.id
+    @vote.value = 1
+    if @vote.save
+      flash[:notice] = "Your vote has been recorded"
+    else
+      flash[:error] = "Sorry, your vote was not saved."
+    end
+    respond_with(current_organisation, @election)
   end
 
   def update
-    @vote.update(vote_params)
-    respond_with(@vote)
-  end
-
-  def destroy
-    @vote.destroy
-    respond_with(@vote)
+    if @vote.update(vote_params)
+      flash[:notice] = "Your vote has been updated"
+    else
+      flash[:error] = "Sorry, your vote was not updated. Please contact an admin: #{current_user.admins.first.email}"
+    end
+    respond_with(current_organisation, @election)
   end
 
   private
@@ -44,10 +47,10 @@ class VotesController < ApplicationController
     end
 
     def set_vote
-      @vote = @election.find(params[:id])
+      @vote = @election.votes.find(params[:id])
     end
 
     def vote_params
-      params.require(:vote).permit(:value, :organisation_id, :election_id, :user_id, :date_voted, :history)
+      params.require(:vote).permit(:value, :organisation_id, :election_id, :user_id, :history, :candidate_id)
     end
 end

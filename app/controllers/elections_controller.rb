@@ -1,4 +1,5 @@
 class ElectionsController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_election, only: [:show, :edit, :update, :destroy]
   before_action :find_elections
 
@@ -9,6 +10,7 @@ class ElectionsController < ApplicationController
   end
 
   def show
+    @vote = @election.votes.where(user_id: current_user.id).first || Vote.new
     respond_with(@election)
   end
 
@@ -39,11 +41,11 @@ class ElectionsController < ApplicationController
   private
 
     def set_election
-      @election = current_user.organisation.elections.find(params[:id])
+      @election = current_organisation.elections.find(params[:id])
     end
 
     def find_elections
-      @elections = current_user.organisation.elections
+      @elections = current_organisation.elections
     end
 
     def election_params

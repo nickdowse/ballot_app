@@ -2,7 +2,8 @@ class User < ActiveRecord::Base
   enum role: [:user, :admin]
   after_initialize :set_default_role, :if => :new_record?
   validate :allowed_email, :on => :create
-  belongs_to :organisation
+  has_many :organisation_users
+  has_many :organisations, through: :organisation_users
   before_create :create_organisation
 
   def set_default_role

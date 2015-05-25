@@ -5,13 +5,36 @@
   = @election.title
 %p
   %b Created at:
-  = @election.created_at
+  = @election.created_at.to_date.to_formatted_s :long_ordinal
 %p
   %b Created by:
-  = @election.created_by
+  = current_organisation.users.find(@election.created_by).name
 
 = link_to 'Edit', edit_organisation_election_path(current_organisation, @election)
 \|
 = link_to 'Back', organisation_elections_path(current_organisation)
 \|
 = link_to 'Candidates', organisation_election_candidates_path(current_organisation, @election)
+
+%hr
+
+.candidates.list
+  %h3 Who will you vote for?
+  = form_for [current_organisation, @election, @vote] do |f|
+    - if @vote.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@vote.errors.count, "error")} prohibited this vote from being saved:"
+        %ul
+          - @vote.errors.full_messages.each do |msg|
+            %li= msg
+
+    .field
+      -# TODO setting for admins to select how many candidates a user can vote for.
+      = f.select :candidate_id, options_for_select(@election.candidates.map{|c| [c.name, c.id] }, @vote.candidate_id)
+
+      -# TODO Check these in controller
+      = f.hidden_field :organisation_id, value: current_organisation.id
+      = f.hidden_field :election_id, value: @election.id
+      = f.hidden_field :user_id, value: current_user.id
+    .actions
+      = f.submit 'Save'
