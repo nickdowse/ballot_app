@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   has_many :organisation_users
   has_many :organisations, through: :organisation_users
   before_create :create_organisation
+  after_create :send_confirmation
 
   def set_default_role
     self.role ||= :user
@@ -26,8 +27,13 @@ class User < ActiveRecord::Base
     self.role = 1
   end
 
+  def send_confirmation
+    self.confirmation_code = Digest::SHA1.hexdigest self.email
+    save!
+  end
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :confirmable
 end

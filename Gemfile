@@ -16,10 +16,13 @@ end
 gem 'bootstrap-sass'
 gem 'devise'
 group :development do
+  gem 'erb2haml'
+  gem 'html2haml'
   gem 'better_errors'
   gem 'quiet_assets'
   gem 'rails_layout'
   gem 'spring-commands-rspec'
+  gem 'mailcatcher'
 end
 group :development, :test do
   gem 'factory_girl_rails'

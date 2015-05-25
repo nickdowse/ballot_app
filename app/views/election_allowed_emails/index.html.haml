@@ -15,13 +15,13 @@
     - @election_allowed_emails.each do |election_allowed_email|
       %tr
         %td= election_allowed_email.email
-        %td= election_allowed_email.created_at
+        %td= election_allowed_email.created_at.to_date.to_formatted_s :long_ordinal
         %td= election_allowed_email.election_id
         %td= election_allowed_email.organisation_id
         %td= link_to 'Show', organisation_election_election_allowed_email_path(current_organisation, @election.id, election_allowed_email)
         - if current_user.admin?
           %td= link_to 'Edit', edit_organisation_election_election_allowed_email_path(current_organisation, @election, election_allowed_email)
-          %td= link_to 'Destroy', organisation_election_election_allowed_email_path(current_organisation, @election.id, election_allowed_email), :method => :delete, :data => { :confirm => 'Are you sure?' }
+          %td= link_to 'Remove', organisation_election_election_allowed_email_path(current_organisation, @election.id, election_allowed_email), :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 

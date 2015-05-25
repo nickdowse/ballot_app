@@ -5,7 +5,7 @@
   = @election_allowed_email.email
 %p
   %b Created at:
-  = @election_allowed_email.created_at
+  = @election_allowed_email.created_at.to_date.to_formatted_s :long_ordinal
 %p
   %b Election:
   = @election_allowed_email.election_id
