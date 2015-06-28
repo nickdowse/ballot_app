@@ -7,16 +7,18 @@ class Organisation < ActiveRecord::Base
   has_many :candidates
   has_many :votes
 
-  validates_inclusion_of :state, :in => ["draft", "published", "hidden", "expired"], :allow_nil => false
-
   default_scope { where(deleted: false) }
-
-  def admins
-    self.users.where(role: 1)
-  end
 
   def is_admin?(user)
     self.admins.include?(user)
+  end
+
+  def add_admin(user)
+    add_user(user, "admin")
+  end
+
+  def add_user(user, role = "user")
+    OrganisationUser.create({user_id: user.id, organisation_id: self.id, role: role})
   end
 
   def destroy

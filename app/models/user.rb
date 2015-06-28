@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :organisations, through: :organisation_users
   has_many :votes
   before_create :create_organisation
-  after_create :send_confirmation
+  # after_create :send_confirmation
 
   def set_default_role
     self.role ||= :user
@@ -24,14 +24,13 @@ class User < ActiveRecord::Base
   def create_organisation
     return if self.organisations.length > 0
     o = Organisation.create({name: self.email})
-    self.organisation_id = o.id
-    self.role = 1
+    o.add_admin(self)
   end
 
-  def send_confirmation
-    self.confirmation_code = Digest::SHA1.hexdigest self.email
-    save!
-  end
+  # def send_confirmation
+  #   self.confirmation_code = Digest::SHA1.hexdigest self.email
+  #   save!
+  # end
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

@@ -7,6 +7,8 @@ class Election < ActiveRecord::Base
 
   has_many :votes
 
+  validates_inclusion_of :state, :in => ["draft", "published", "hidden", "expired"], :allow_nil => false
+
   scope :draft, -> { where(state: "draft") }
   scope :published, -> { where(state: "published") }
   scope :hidden, -> { where(state: "hidden") }
