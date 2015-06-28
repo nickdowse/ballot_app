@@ -1,6 +1,6 @@
 class CandidatesController < ApplicationController
   before_action :set_election
-  before_action :set_candidate, only: [:show, :edit, :update, :destroy]
+  before_action :set_candidate, only: [:show, :edit, :update, :destroy, :remove_candidate]
 
   respond_to :html
 
@@ -19,6 +19,20 @@ class CandidatesController < ApplicationController
   end
 
   def edit
+  end
+
+  def bulk_add
+    @candidates = (current_organisation.candidates.all.order("created_at DESC") - @election.candidates)
+  end
+
+  def add_candidates_to_election
+    @election.add_candidates(params[:candidates])
+    redirect_to organisation_election_candidates_path(current_organisation, @election)
+  end
+
+  def remove_candidate
+    @election.remove_candidate(@candidate)
+    redirect_to organisation_election_candidates_path(current_organisation, @election)
   end
 
   def create

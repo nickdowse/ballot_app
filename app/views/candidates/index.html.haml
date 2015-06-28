@@ -5,10 +5,12 @@
         .col-md-8
           %h1 Candidate Overview
           
-        .col-md-4
-          - if current_organisation.is_admin?(current_user)
-            %button.pull-right.btn.btn-default.show_election_button{:type => "button"}= link_to 'New candidate', new_organisation_election_candidate_path(current_organisation, @election)
-      %p.lead= "This is an overview of all of the candidates in the #{link_to @election.title, organisation_election_path(current_organisation, @election)}.".html_safe
+          %p.lead= "This is an overview of all of the candidates in the #{link_to @election.title, organisation_election_path(current_organisation, @election)}.".html_safe
+      .row
+        .col-md-8
+          .btn-group.btn-group-xs{:role =>"group"}
+            %button.btn.btn-default{:type => "button"}= link_to 'New Candidate', new_organisation_election_candidate_path(current_organisation, @election)
+            %button.btn.btn-default{:type => "button"}= link_to 'Add existing candidates', bulk_add_organisation_election_candidates_path(current_organisation, @election)
   %hr.col-md-10.col-md-offset-1
   %hr
   - @candidates.each do |candidate|

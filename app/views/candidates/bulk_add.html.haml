@@ -1,0 +1,27 @@
+.container
+  .row.election_overview
+    .col-md-8.col-md-offset-2.text-left
+      .row
+        .col-md-8
+          %h1= "Add Candidates to #{@election.title}"
+          
+  %hr.col-md-10.col-md-offset-1
+  %hr
+  = form_tag add_candidates_to_election_organisation_election_candidates_path(current_organisation, @election) do
+    .row.election_overview
+      .col-md-8.col-md-offset-2.text-left
+        %table.table
+          %tr
+            %th Name
+            %th Created at
+            %th Description
+            %th
+
+          - @candidates.each do |candidate|
+            %tr
+              %td= candidate.name
+              %td= "#{time_ago_in_words(candidate.created_at)} ago"
+              %td= truncate(candidate.description, length: 30)
+              %td= check_box_tag "candidates[]", candidate.id 
+
+        = submit_tag "Add candidates to #{@election.title}", class: "btn btn-default"

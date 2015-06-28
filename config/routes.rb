@@ -13,7 +13,15 @@ Rails.application.routes.draw do
     resources :allowed_emails
     resources :elections do
       resources :election_allowed_emails
-      resources :candidates
+      resources :candidates do
+        collection do
+          get :bulk_add
+          post :add_candidates_to_election
+        end
+        member do
+          post :remove_candidate
+        end
+      end
       resources :votes
     end
   end

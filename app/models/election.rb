@@ -20,4 +20,17 @@ class Election < ActiveRecord::Base
     self.created_at = Time.now
   end
 
+  def add_candidates(candidate_ids)
+    organisation.candidates.where(id: candidate_ids).each do |c|
+      add_candidate(c)
+    end
+  end
+
+  def add_candidate(candidate)
+    CandidateElection.create({candidate_id: candidate.id, election_id: self.id})
+  end
+
+  def remove_candidate(candidate)
+    CandidateElection.where({candidate_id: candidate.id, election_id: self.id}).delete_all
+  end
 end
