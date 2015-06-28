@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   end
 
   def allowed_email
-    return if self.organisation.blank?
+    return if self.organisations.length == 0
     if self.organisation.allowed_emails.pluck(:email).include?(self.email)
       return true
     else
@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   end
 
   def create_organisation
-    return if self.organisation.present?
+    return if self.organisations.length > 0
     o = Organisation.create({name: self.email})
     self.organisation_id = o.id
     self.role = 1
