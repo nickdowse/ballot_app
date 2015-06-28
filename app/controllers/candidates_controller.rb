@@ -5,7 +5,7 @@ class CandidatesController < ApplicationController
   respond_to :html
 
   def index
-    @candidates = @election.candidates.all
+    @candidates = @election.candidates.all.order("created_at DESC")
     respond_with(current_organisation, @election)
   end
 

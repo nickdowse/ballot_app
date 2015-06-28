@@ -40,6 +40,10 @@ class OrganisationsController < ApplicationController
     respond_with(@organisation)
   end
 
+  def org_candidates
+    @candidates = current_organisation.candidates.order("created_at DESC")
+  end
+
   private
     def set_organisation
       @organisation = Organisation.find(params[:id])

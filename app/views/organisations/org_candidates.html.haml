@@ -7,8 +7,8 @@
           
         .col-md-4
           - if current_organisation.is_admin?(current_user)
-            %button.pull-right.btn.btn-default.show_election_button{:type => "button"}= link_to 'New candidate', new_organisation_election_candidate_path(current_organisation, @election)
-      %p.lead= "This is an overview of all of the candidates in the #{link_to @election.title, organisation_election_path(current_organisation, @election)}.".html_safe
+            %button.pull-right.btn.btn-default.show_election_button{:type => "button"}= link_to 'New candidate', new_organisation_election_path(current_organisation)
+      %p.lead= "This is an overview of all of the candidates in the <em>#{link_to current_organisation.name, edit_organisation_path(current_organisation)}</em> organisation.".html_safe
   %hr.col-md-10.col-md-offset-1
   %hr
   - @candidates.each do |candidate|

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       post :make_admin
       post :make_user
       post :remove_user
+      get :org_candidates
     end
     resources :allowed_emails
     resources :elections do

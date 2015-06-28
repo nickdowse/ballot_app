@@ -7,6 +7,12 @@ class Election < ActiveRecord::Base
 
   has_many :votes
 
+  scope :draft, -> { where(state: "draft") }
+  scope :published, -> { where(state: "published") }
+  scope :hidden, -> { where(state: "hidden") }
+  scope :expired, -> { where("state = 'expired' or end_date < ?", Time.now) }
+  scope :active, -> { where("state = 'published' or state = 'hidden'") }
+
   # Active record hooks
   before_create :set_defaults
 

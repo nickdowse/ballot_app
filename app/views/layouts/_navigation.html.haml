@@ -15,8 +15,25 @@
       %ul.nav.navbar-nav.pull-right
         - if user_signed_in?
           - if current_user.admin?
-            %li= link_to 'Manage Org', organisation_path(current_organisation)
-          %li= link_to 'Sign out', destroy_user_session_path, :method=>'delete'
+            %li.dropdown
+              %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+                = "#{current_organisation.name}"
+                %span.caret
+              %ul.dropdown-menu
+                %li= link_to 'Manage Organisation', organisation_path(current_organisation)
+                %li= link_to 'Elections', organisation_elections_path(current_organisation)
+                %li= link_to 'Candidates', org_candidates_organisation_path(current_organisation)
+
         - else
           %li= link_to 'Sign in', new_user_session_path
           %li= link_to 'Sign up', new_user_registration_path
+        %li.dropdown
+          %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+            = "#{current_user.email}"
+            %span.caret
+          %ul.dropdown-menu
+            %li
+              = link_to 'Account settings', edit_user_registration_path
+            %li.divider{:role => "separator"}
+            %li
+              = link_to 'Sign out', destroy_user_session_path, :method=>'delete'

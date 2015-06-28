@@ -11,5 +11,9 @@
       %p.lead This is an overview of all of the elections that you can take part in
   %hr.col-md-10.col-md-offset-1
   %hr
-  - @elections.each do |election|
+  - @elections.draft.each do |election|
+    = render 'elections/election', election: election
+  - @elections.active.each do |election|
+    = render 'elections/election', election: election
+  - @elections.expired.each do |election|
     = render 'elections/election', election: election
