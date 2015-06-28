@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150525182527) do
+ActiveRecord::Schema.define(version: 20150628141710) do
 
   create_table "allowed_emails", force: :cascade do |t|
     t.string  "email",           limit: 255
@@ -36,25 +36,30 @@ ActiveRecord::Schema.define(version: 20150525182527) do
     t.string   "name",            limit: 255
     t.integer  "organisation_id", limit: 4
     t.text     "description",     limit: 65535
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.boolean  "deleted",         limit: 1,     default: false
   end
 
   create_table "election_allowed_emails", force: :cascade do |t|
     t.string   "email",           limit: 255
-    t.datetime "created_at",                  null: false
+    t.datetime "created_at",                                  null: false
     t.integer  "election_id",     limit: 4
     t.integer  "organisation_id", limit: 4
     t.string   "created_by",      limit: 255
-    t.datetime "updated_at",                  null: false
+    t.datetime "updated_at",                                  null: false
+    t.boolean  "deleted",         limit: 1,   default: false
   end
 
   create_table "elections", force: :cascade do |t|
     t.string   "title",           limit: 255
-    t.datetime "created_at",                  null: false
+    t.datetime "created_at",                    null: false
     t.integer  "created_by",      limit: 4
-    t.datetime "updated_at",                  null: false
-    t.integer  "organisation_id", limit: 4,   null: false
+    t.datetime "updated_at",                    null: false
+    t.integer  "organisation_id", limit: 4,     null: false
+    t.text     "description",     limit: 65535
+    t.datetime "end_date"
+    t.string   "state",           limit: 255
   end
 
   create_table "organisation_users", id: false, force: :cascade do |t|

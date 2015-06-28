@@ -1,28 +1,13 @@
-%h1 Listing election_allowed_emails
-
-%table
-  %thead
-    %tr
-      %th Email
-      %th Created at
-      %th Election
-      %th Organisation
-      %th
-      %th
-      %th
-
-  %tbody
-    - @election_allowed_emails.each do |election_allowed_email|
-      %tr
-        %td= election_allowed_email.email
-        %td= election_allowed_email.created_at.to_date.to_formatted_s :long_ordinal
-        %td= election_allowed_email.election_id
-        %td= election_allowed_email.organisation_id
-        %td= link_to 'Show', organisation_election_election_allowed_email_path(current_organisation, @election.id, election_allowed_email)
-        - if current_user.admin?
-          %td= link_to 'Edit', edit_organisation_election_election_allowed_email_path(current_organisation, @election, election_allowed_email)
-          %td= link_to 'Remove', organisation_election_election_allowed_email_path(current_organisation, @election.id, election_allowed_email), :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Election allowed email', new_organisation_election_election_allowed_email_path(current_organisation, @election)
+.container
+  .row.election_overview
+    .col-md-8.col-md-offset-2.text-left
+      .row
+        .col-md-8
+          %h1 Election users overview
+          
+        .col-md-4
+          %button.pull-right.btn.btn-default.show_election_button{:type => "button"}= link_to 'New user', new_organisation_election_election_allowed_email_path(current_organisation, @election)
+      %p.lead= "This is an overview of all of the users that can take part in the <em>#{link_to @election.title, organisation_election_path(current_organisation, @election)}</em>".html_safe
+  %hr.col-md-10.col-md-offset-1
+  - @election_allowed_emails.each do |election_allowed_email|
+    = render 'election_allowed_emails/election_allowed_email', election_allowed_email: election_allowed_email

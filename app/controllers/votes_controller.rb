@@ -2,7 +2,7 @@ class VotesController < ApplicationController
   before_action :set_election
   before_action :set_vote, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html
+  respond_to :html, :js
 
   def index
     @votes = @election.votes.all
@@ -32,12 +32,15 @@ class VotesController < ApplicationController
   end
 
   def update
-    if @vote.update(vote_params)
-      flash[:notice] = "Your vote has been updated"
+    if @vote.update_attributes(vote_params)
+      respond_to do |format|
+        format.json { render :text => "Successfully Done!" }
+      end
     else
-      flash[:error] = "Sorry, your vote was not updated. Please contact an admin: #{current_user.admins.first.email}"
+      respond_to do |format|
+        format.json { render :text => "Failure!" }
+      end
     end
-    respond_with(current_organisation, @election)
   end
 
   private
@@ -51,6 +54,6 @@ class VotesController < ApplicationController
     end
 
     def vote_params
-      params.require(:vote).permit(:value, :organisation_id, :election_id, :user_id, :history, :candidate_id)
+      params.permit(:id, :value, :organisation_id, :election_id, :user_id, :history, :candidate_id)
     end
 end

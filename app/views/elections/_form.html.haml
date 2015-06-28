@@ -6,9 +6,19 @@
         - @election.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
+  .field.form-group
     = f.label :title
-    = f.text_field :title
+    = f.text_field :title, class: "form-control"
+  .field.form-group
+    = f.label :description
+    = f.text_area :description, class: "form-control"
     = f.hidden_field :created_by, value: current_user.id
+  .field.form-group
+    = f.label :end_date
+    = f.date_select(:end_date, :order => [:day, :month, :year])
   .actions
-    = f.submit 'Save'
+    = f.submit 'Save', class: "btn btn-default"
+
+    %button.btn.btn-default{:type => "button"}= link_to 'Edit allowed users', organisation_election_election_allowed_emails_path(current_organisation, @election)
+
+    %button.btn.btn-default{:type => "button"}= link_to 'Edit candidates', organisation_election_candidates_path(current_organisation, @election)

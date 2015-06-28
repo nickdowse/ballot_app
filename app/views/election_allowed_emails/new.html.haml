@@ -1,5 +1,15 @@
-%h1 New election_allowed_email
-
-= render 'form'
-
-= link_to 'Back', organisation_election_election_allowed_emails_path(current_organisation, @election)
+.container
+  .row.individual_election_allowed_email
+    .col-md-8.col-md-offset-2
+      .row
+        .col-md-12.text-left
+          %h1= "New user for election: <em>#{@election.title}</em>".html_safe
+  %hr.col-md-8.col-md-offset-2
+  .row.individual_election_allowed_email
+    .col-md-8.col-md-offset-2
+      = render 'form'
+  %br
+  %br
+  .row.individual_election_allowed_email
+    .col-md-8.col-md-offset-2
+      = link_to 'Back', organisation_election_election_allowed_emails_path(current_organisation, @election)

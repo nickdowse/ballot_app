@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   validate :allowed_email, :on => :create
   has_many :organisation_users
   has_many :organisations, through: :organisation_users
+  has_many :votes
   before_create :create_organisation
   after_create :send_confirmation
 

@@ -1,7 +1,16 @@
-%h1 Editing election_allowed_email
+.container
+  .row.election_overview
+    .col-md-8.col-md-offset-2.text-left
+      .row
+        .col-md-8
+          %h1= @election.title
+          
+        .col-md-4
+          %button.pull-right.btn.btn-default.show_election_button{:type => "button"}= link_to 'View election', organisation_election_path(current_organisation, @election)
+      %p.lead Edit users that can vote in this election.
+  %hr.col-md-10.col-md-offset-1
 
-= render 'form'
-
-= link_to 'Show', @election_allowed_email
-\|
-= link_to 'Back', organisation_election_election_allowed_emails_path(current_organisation, @election)
+.container
+  .row.election_overview
+    .col-md-8.col-md-offset-2.text-left
+      = render 'form'

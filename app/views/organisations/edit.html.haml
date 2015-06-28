@@ -1,23 +1,26 @@
-%h1 Editing organisation
+.container
+  .row.election_overview
+    .col-md-8.col-md-offset-2.text-left
+      .row
+        .col-md-8
+          %h1 Edit organisation
+          
 
-= render 'form'
+      = render 'form'
 
-= link_to 'Show', @organisation
-\|
-= link_to 'Back', organisations_path
-%br
-%br
-These are the email address users of #{@organisation.name} can sign up with:
-- @organisation.allowed_emails.each do |e|
-  %p #{e.email}
+      %br
+      %br
+      These are the email address users of #{@organisation.name} can sign up with:
+      - @organisation.allowed_emails.each do |e|
+        %p #{e.email}
 
-%br
-%br
-You can also create new ones:
-%br
-%br
-= form_for @organisation.allowed_emails.new, :url => organisation_allowed_emails_path(current_organisation), method: :post do |f|
-  = f.text_field :email, :placeholder => "Email"
-  = f.hidden_field :organisation_id, value: current_organisation.id
-  = f.submit "Submit!"
+      %br
+      %br
+      You can also create new ones:
+      %br
+      %br
+      = form_for @organisation.allowed_emails.new, :url => organisation_allowed_emails_path(current_organisation), method: :post do |f|
+        = f.text_field :email, :placeholder => "Email", class: "form-control"
+        = f.hidden_field :organisation_id, value: current_organisation.id
+        = f.submit "Create", class: "btn btn-default"
 

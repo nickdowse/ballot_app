@@ -1,7 +1,13 @@
-%h1 Editing candidate
+.container
+  .row.election_overview
+    .col-md-8.col-md-offset-2.text-left
+      .row
+        %h3= "Edit #{@candidate.name}"
+        %p.small!= "Created #{time_ago_in_words(@candidate.created_at)} ago"
+  %hr.col-md-10.col-md-offset-1
+  %hr
+  .row.election_overview
+    .col-md-8.col-md-offset-2.text-left
+      .row
+        = render 'form'
 
-= render 'form'
-
-= link_to 'Show', [current_organisation, @election, @candidate]
-\|
-= link_to 'Back', [current_organisation, @election, @election.candidates]

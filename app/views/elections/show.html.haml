@@ -1,42 +1,28 @@
-%p#notice= notice
+.container
+  .row.election_overview
+    .col-md-8.col-md-offset-2.text-left
+      .row
+        .col-md-8
+          %h1= @election.title
+          
+        .col-md-4
+          - if current_organisation.is_admin?(current_user)
+            %button.pull-right.btn.btn-default.show_election_button{:type => "button"}= link_to 'Edit', edit_organisation_election_path(current_organisation, @election)
+      %p.small!= "Created by #{content_tag(:strong, User.find(@election.created_by).name)} #{time_ago_in_words(@election.created_at)} ago"
+      %p.lead= @election.description
+  %hr.col-md-10.col-md-offset-1
 
-%p
-  %b Title:
-  = @election.title
-%p
-  %b Created at:
-  = @election.created_at.to_date.to_formatted_s :long_ordinal
-%p
-  %b Created by:
-  = current_organisation.users.find(@election.created_by).name
+  .row
+    .col-md-8.col-md-offset-2.text-left
+      - @election.candidates.each do |candidate|
+        .col-md-4
+          = image_tag "candidate_placeholder.jpg"
+          -# Here goes the image
+          %h3= candidate.name
+          %p.candidate_description= truncate(candidate.description, length: 150)
+          %p.candidate_full_description.hide= candidate.description
 
-- if current_user.confirmed?
-  = link_to 'Edit', edit_organisation_election_path(current_organisation, @election)
-  \|
-= link_to 'Back', organisation_elections_path(current_organisation)
-- if current_user.confirmed?
-  \|
-  = link_to 'Candidates', organisation_election_candidates_path(current_organisation, @election)
+          .voting_block
+            %span.button-checkbox
+              %button.btn{"data-color" => "success", :type => "button", "data-id" => candidate.id, "data-state" => @vote.candidate_id == candidate.id ? "on" : "off", :class => @vote.candidate_id == candidate.id ? "btn-success active" : "btn-default", "data-vote" => @vote.id}= @vote.candidate_id == candidate.id ? :"Voted" : "Vote"
 
-%hr
-- if current_user.confirmed?
-  .candidates.list
-    %h3 Who will you vote for?
-    = form_for [current_organisation, @election, @vote] do |f|
-      - if @vote.errors.any?
-        #error_explanation
-          %h2= "#{pluralize(@vote.errors.count, "error")} prohibited this vote from being saved:"
-          %ul
-            - @vote.errors.full_messages.each do |msg|
-              %li= msg
-
-      .field
-        -# TODO setting for admins to select how many candidates a user can vote for.
-        = f.select :candidate_id, options_for_select(@election.candidates.map{|c| [c.name, c.id] }, @vote.candidate_id)
-
-        -# TODO Check these in controller
-        = f.hidden_field :organisation_id, value: current_organisation.id
-        = f.hidden_field :election_id, value: @election.id
-        = f.hidden_field :user_id, value: current_user.id
-      .actions
-        = f.submit 'Save'

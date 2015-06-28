@@ -22,7 +22,7 @@ class CandidatesController < ApplicationController
   end
 
   def create
-    if params["candidate"]["organisation_id"].to_i != current_user.organisation.id
+    if params["candidate"]["organisation_id"].to_i != current_organisation.id
       flash[:error] = "That's not allowed!"
       redirect_to :back and return
     end
@@ -39,8 +39,8 @@ class CandidatesController < ApplicationController
   end
 
   def destroy
-    @candidate.destroy
-    respond_with(current_organisation, @election, @candidate)
+    @candidate.update_attribute(:deleted, true)
+    redirect_to edit_organisation_election_candidates_path(current_organisation, @election, @election.candidates)
   end
 
   private

@@ -1,11 +1,16 @@
-%p#notice= notice
+.container
+  .row.election_overview
+    .col-md-8.col-md-offset-2.text-left
+      .row
+        .col-md-8
+          %h1 Organisation overview
+          
+        .col-md-4
+          %button.pull-right.btn.btn-default.show_election_button{:type => "button"}= link_to 'Edit organisation', edit_organisation_path(current_organisation)
 
-%p
-  %b Name:
-  = @organisation.name
-
-= link_to 'Edit', edit_organisation_path(@organisation)
-\|
-= link_to 'Back', organisations_path
-\|
-= link_to 'Users', users_organisation_path(@organisation)
+  %hr.col-md-10.col-md-offset-1
+  %hr
+  .row.election_overview
+    .col-md-8.col-md-offset-2.text-left
+      - current_organisation.users.each do |user|
+        = render 'users/user', user: user

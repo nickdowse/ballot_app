@@ -1,25 +1,15 @@
-%h1 Listing candidates
-
-%table
-  %thead
-    %tr
-      %th Name
-      %th Organisation
-      %th Description
-      %th
-      %th
-      %th
-
-  %tbody
-    - @candidates.each do |candidate|
-      %tr
-        %td= candidate.name
-        %td= candidate.organisation_id
-        %td= candidate.description
-        %td= link_to 'Show', [current_organisation, @election, candidate]
-        %td= link_to 'Edit', edit_organisation_election_candidate_path(current_organisation, @election, candidate)
-        %td= link_to 'Destroy', [current_organisation, @election, candidate], :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Candidate', new_organisation_election_candidate_path(current_organisation, @election, @election.candidates.new)
+.container
+  .row.election_overview
+    .col-md-8.col-md-offset-2.text-left
+      .row
+        .col-md-8
+          %h1 Candidate Overview
+          
+        .col-md-4
+          - if current_organisation.is_admin?(current_user)
+            %button.pull-right.btn.btn-default.show_election_button{:type => "button"}= link_to 'New candidate', new_organisation_election_path(current_organisation)
+      %p.lead= "This is an overview of all of the candidates in the #{link_to @election.title, organisation_election_path(current_organisation, @election)}.".html_safe
+  %hr.col-md-10.col-md-offset-1
+  %hr
+  - @candidates.each do |candidate|
+    = render 'candidates/candidate', candidate: candidate

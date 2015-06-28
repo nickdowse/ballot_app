@@ -8,5 +8,15 @@
         %span.icon-bar
         %span.icon-bar
     .collapse.navbar-collapse
-      %ul.nav.navbar-nav
-        = render 'layouts/navigation_links'
+      %ul.nav.navbar-nav.left
+        -# add navigation links to this file
+        - if user_signed_in?
+          %li= link_to 'Elections', organisation_elections_path(current_organisation)
+      %ul.nav.navbar-nav.pull-right
+        - if user_signed_in?
+          - if current_user.admin?
+            %li= link_to 'Manage Org', organisation_path(current_organisation)
+          %li= link_to 'Sign out', destroy_user_session_path, :method=>'delete'
+        - else
+          %li= link_to 'Sign in', new_user_session_path
+          %li= link_to 'Sign up', new_user_registration_path

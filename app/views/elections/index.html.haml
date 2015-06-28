@@ -1,26 +1,15 @@
-%h1 Elections you can vote in
-
-%table
-  %thead
-    %tr
-      %th Title
-      %th Created at
-      %th Created by
-      %th
-      %th
-      %th
-
-  %tbody
-    - @elections.each do |election|
-      %tr
-        %td= election.title
-        %td= election.created_at.to_date.to_formatted_s :long_ordinal
-        %td= election.created_by
-        %td= link_to 'Show', [current_organisation, election]
-        - if current_organisation.is_admin?(current_user)
-          %td= link_to 'Edit', edit_organisation_election_path(current_organisation, election)
-          %td= link_to 'Destroy', [current_organisation, election], :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-- if current_organisation.is_admin?(current_user) && current_user.confirmed?
-  = link_to 'New Election', new_organisation_election_path(current_organisation)
+.container
+  .row.election_overview
+    .col-md-8.col-md-offset-2.text-left
+      .row
+        .col-md-8
+          %h1 Election Overview
+          
+        .col-md-4
+          - if current_organisation.is_admin?(current_user)
+            %button.pull-right.btn.btn-default.show_election_button{:type => "button"}= link_to 'New election', new_organisation_election_path(current_organisation)
+      %p.lead This is an overview of all of the elections that you can take part in
+  %hr.col-md-10.col-md-offset-1
+  %hr
+  - @elections.each do |election|
+    = render 'elections/election', election: election

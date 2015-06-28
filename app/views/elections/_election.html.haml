@@ -1,0 +1,18 @@
+.row.individual_election
+  .col-md-8.col-md-offset-2
+    .row
+      .col-md-8.text-left
+        %h3= election.title
+        %p.small!= "Created by #{content_tag(:strong, User.find(election.created_by).name)} #{time_ago_in_words(election.created_at)} ago"
+      .col-md-4.text-right
+        %button.btn.btn-default.show_election_button{:type => "button"}= link_to 'Vote', [current_organisation, election]
+    .row
+      .col-md-12.text-left
+        %p= election.description
+    - if current_organisation.is_admin?(current_user)
+      .row
+        .col-md-12.text-left
+          .btn-group.btn-group-xs{:role =>"group"}
+            %button.btn.btn-default{:type => "button"}= link_to 'Edit', edit_organisation_election_path(current_organisation, election)
+            %button.btn.btn-default{:type => "button"}= link_to 'Delete', [current_organisation, election], :method => :delete, :data => { :confirm => 'Are you sure?' }
+%hr
