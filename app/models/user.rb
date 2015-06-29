@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   has_many :organisation_users
   has_many :organisations, through: :organisation_users
   has_many :votes
-  before_create :create_organisation
+  after_create :create_organisation
   # after_create :send_confirmation
 
   def set_default_role
@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
   # end
 
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 end
