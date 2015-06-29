@@ -20,17 +20,7 @@ $url_0: image-url("values-bg.jpg");
 .section-description {
   margin-bottom: 1.2rem;
 }
-.phones {
-  position: relative;
-}
-.phone {
-  position: relative;
-  max-width: 80%;
-  margin: 3rem auto -12rem;
-  + .phone {
-    display: none;
-  }
-}
+
 .values {
   background-image: $url_0;
   background-size: cover;
@@ -121,7 +111,7 @@ $url_0: image-url("values-bg.jpg");
     padding: 20rem 0 19rem;
   }
   .hero {
-    padding: 22rem 0;
+    padding: 16rem 0 24rem 0;
   }
   .hero-heading {
     font-size: 3.0rem;
