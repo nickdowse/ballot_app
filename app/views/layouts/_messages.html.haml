@@ -1,9 +1,8 @@
 -# Rails flash messages styled for Bootstrap 3.0
 - flash.each do |name, msg|
   - if msg.is_a?(String)
-    .fixed
-      .flash_messages
-        = message_block :on => [:all], :after_message => '<a href="#" class="close">&times;</a>'
-    -# .alert{class: "alert-#{name.to_s == 'notice' ? 'success' : 'danger'}"}
-    -#   %button{type: "button", class: "close", "data-dismiss": "alert", "aria-hidden": "true"}
-    -#   = content_tag :div, msg, :id => "flash_#{name}"
+    .row
+      .fixed
+        .flash_messages
+          %button{type: "button", class: "close", "data-dismiss": "alert", "aria-hidden": "true"}
+          = message_block :on => [:all], :after_message => '<a href="#" class="close">&times;</a>'

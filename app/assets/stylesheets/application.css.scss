@@ -19,3 +19,42 @@
     display: block;
   }
 }
+
+header .row {
+  margin-top: -83px;
+  z-index: 50000 !important;
+}
+
+.flash_messages {
+  .alert {
+    background-color: red;
+    opacity: 0.8;
+    height: 63px !important;
+  }
+  .notice {
+    margin-top: -5px;
+    background-color: #6b0;
+    opacity: 0.8;
+    height: 63px !important;
+    padding-top: 0px;
+  }
+
+  .message_block ul.notice li {
+    padding-top: 20px;
+  }
+
+  .message_block ul li {
+    margin-top: 5px;
+    text-align: center;
+    list-style-type: none;
+    color: #FFF;
+    font-family: verdana, arial, helvetica, sans-serif;
+    font-size: 20px;
+    line-height: 18px;
+  }
+}
+
+.navbar {
+  z-index: 0 !important;
+  border-radius: 0px !important;
+}

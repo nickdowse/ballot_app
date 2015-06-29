@@ -1,19 +1,22 @@
-.authform
-  = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :role => 'form'}) do |f|
-    %h3 Sign Up
-    = devise_error_messages!
-    .form-group
-      = f.label :name
-      = f.text_field :name, :autofocus => true, class: 'form-control'
-    .form-group
-      = f.label :email
-      = f.email_field :email, class: 'form-control'
-    .form-group
-      = f.label :password
-      = f.password_field :password, class: 'form-control'
-    .form-group
-      = f.label :password_confirmation
-      = f.password_field :password_confirmation, class: 'form-control'
-      - if current_organisation.present?
-        = f.hidden_field :organisation_id, value: current_organisation.id
-    = f.submit 'Sign up', :class => 'button right'
+.container
+  .row.election_overview
+    .col-md-8.col-md-offset-2.text-left
+      .authform
+        = form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :role => 'form'}) do |f|
+          %h3 Sign Up
+          = devise_error_messages!
+          .form-group
+            = f.label :name
+            = f.text_field :name, :autofocus => true, class: 'form-control'
+          .form-group
+            = f.label :email
+            = f.email_field :email, class: 'form-control'
+          .form-group
+            = f.label :password
+            = f.password_field :password, class: 'form-control'
+          .form-group
+            = f.label :password_confirmation
+            = f.password_field :password_confirmation, class: 'form-control'
+            - if current_organisation.present?
+              = f.hidden_field :organisation_id, value: current_organisation.id
+          = f.submit 'Sign up', :class => 'button right'
