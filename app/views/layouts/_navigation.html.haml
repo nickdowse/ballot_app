@@ -10,6 +10,7 @@
     .collapse.navbar-collapse
       %ul.nav.navbar-nav.left
         -# add navigation links to this file
+        %li= link_to 'BallotApp', root_path
         - if user_signed_in?
           %li= link_to 'Elections', organisation_elections_path(current_organisation)
       %ul.nav.navbar-nav.pull-right
