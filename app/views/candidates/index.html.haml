@@ -1,13 +1,10 @@
 .container
   .row.election_overview
     .col-md-8.col-md-offset-2.text-left
+      %h1 Candidate Overview        
+      %p.lead= "This is an overview of all of the candidates in the #{link_to @election.title, organisation_election_path(current_organisation, @election)}.".html_safe
       .row
-        .col-md-8
-          %h1 Candidate Overview
-          
-          %p.lead= "This is an overview of all of the candidates in the #{link_to @election.title, organisation_election_path(current_organisation, @election)}.".html_safe
-      .row
-        .col-md-8
+        .col-md-12
           .btn-group.btn-group-xs{:role =>"group"}
             %button.btn.btn-default{:type => "button"}= link_to 'New Candidate', new_organisation_election_candidate_path(current_organisation, @election)
             %button.btn.btn-default{:type => "button"}= link_to 'Add existing candidates', bulk_add_organisation_election_candidates_path(current_organisation, @election)

@@ -36,15 +36,16 @@ class CandidatesController < ApplicationController
   end
 
   def create
-    if params["candidate"]["organisation_id"].to_i != current_organisation.id
+    if params["organisation_id"].to_i != current_organisation.id
       flash[:error] = "That's not allowed!"
       redirect_to :back and return
     end
+    candidate_params[:organisation_id] = current_organisation.id
     @election.candidates << Candidate.new(candidate_params)
     @election.reload
     @candidate = @election.candidates.last
-    flash[:notice] = 'Candidate was successfully created.' if @candidate.present?
-    respond_with(current_organisation, @election, @candidate)
+    flash[:notice] = 'Candidate was successfully created.' if @candidate.present? # What if election already has candidates and and the candidate is not created successfully
+    redirect_to organisation_election_candidates_path(current_organisation, @election)
   end
 
   def update
@@ -68,6 +69,6 @@ class CandidatesController < ApplicationController
     end
 
     def candidate_params
-      params.require(:candidate).permit(:name, :organisation_id, :description)
+      params.require(:candidate).permit(:name, :organisation_id, :description, :avatar)
     end
 end

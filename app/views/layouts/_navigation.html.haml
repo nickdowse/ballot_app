@@ -15,7 +15,7 @@
           %li= link_to 'Elections', organisation_elections_path(current_organisation)
       %ul.nav.navbar-nav.pull-right
         - if user_signed_in?
-          - if current_user.admin?
+          - if current_organisation.is_admin?(current_user)
             %li.dropdown
               %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
                 = "#{current_organisation.name}"

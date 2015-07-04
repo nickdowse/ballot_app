@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150628150234) do
+ActiveRecord::Schema.define(version: 20150704130415) do
 
   create_table "allowed_emails", force: :cascade do |t|
     t.string  "email",           limit: 255
@@ -33,12 +33,16 @@ ActiveRecord::Schema.define(version: 20150628150234) do
   end
 
   create_table "candidates", force: :cascade do |t|
-    t.string   "name",            limit: 255
-    t.integer  "organisation_id", limit: 4
-    t.text     "description",     limit: 65535
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
-    t.boolean  "deleted",         limit: 1,     default: false
+    t.string   "name",                limit: 255
+    t.integer  "organisation_id",     limit: 4
+    t.text     "description",         limit: 65535
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+    t.boolean  "deleted",             limit: 1,     default: false
+    t.string   "avatar_file_name",    limit: 255
+    t.string   "avatar_content_type", limit: 255
+    t.integer  "avatar_file_size",    limit: 4
+    t.datetime "avatar_updated_at"
   end
 
   create_table "election_allowed_emails", force: :cascade do |t|
@@ -91,7 +95,6 @@ ActiveRecord::Schema.define(version: 20150628150234) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name",                   limit: 255
-    t.integer  "role",                   limit: 4
     t.string   "confirmation_token",     limit: 255
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"

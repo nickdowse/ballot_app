@@ -2,7 +2,7 @@
   = link_to user.email, user
 %td
   = form_for(user) do |f|
-    = f.select(:role, User.roles.keys.map {|role| [role.titleize,role]})
+    = f.select(:role, ["user", "admin"], selected: current_organisation.is_admin?(user) ? "admin" : "user" )
     = f.submit 'Change Role', :class => 'button-xs'
 %td
   = link_to("Delete user", user_path(user), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'button-xs') unless user == current_user

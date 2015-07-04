@@ -18,6 +18,8 @@ end
 gem 'bootstrap-sass'
 gem 'devise'
 gem 'message_block'
+gem 'aws-sdk', '< 2.0'
+gem 'paperclip'
 
 group :development do
   gem 'erb2haml'
