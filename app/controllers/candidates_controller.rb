@@ -50,7 +50,7 @@ class CandidatesController < ApplicationController
 
   def update
     flash[:notice] = 'Candidate was successfully updated.' if @candidate.update(candidate_params)
-    respond_with(current_organisation, @election, @candidate)
+    redirect_to edit_organisation_election_candidates_path(current_organisation, @election, @candidate)
   end
 
   def destroy

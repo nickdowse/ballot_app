@@ -16,8 +16,7 @@
     .col-md-8.col-md-offset-2.text-left
       - @election.candidates.each do |candidate|
         .col-md-4
-          = image_tag "candidate_placeholder.jpg"
-          -# Here goes the image
+          = image_tag candidate.avatar.present? ? candidate.avatar.url : 'candidate_placeholder.jpg'
           %h3= candidate.name
           %p.candidate_description= truncate(candidate.description, length: 150)
           %p.candidate_full_description.hide= candidate.description
