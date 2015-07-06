@@ -1,27 +1,29 @@
 .container
   .row.election_overview
-    .col-md-8.col-md-offset-2.text-left
+    .col-sm-8.col-sm-offset-2.text-left
       .row
-        .col-md-8
+        .col-sm-8
           %h1= @election.title
           
-        .col-md-4
+        .col-sm-4
           - if current_organisation.is_admin?(current_user)
             %button.pull-right.btn.btn-default.show_election_button{:type => "button"}= link_to 'Edit', edit_organisation_election_path(current_organisation, @election)
       %p.small!= "Created by #{content_tag(:strong, User.find(@election.created_by).name)} #{time_ago_in_words(@election.created_at)} ago"
       %p.lead= @election.description
-  %hr.col-md-10.col-md-offset-1
+  %hr.col-sm-10.col-sm-offset-1
 
   .row
-    .col-md-8.col-md-offset-2.text-left
-      - @election.candidates.each do |candidate|
-        .col-md-4
-          = image_tag candidate.avatar.present? ? candidate.avatar.url : 'candidate_placeholder.jpg'
-          %h3= candidate.name
-          %p.candidate_description= truncate(candidate.description, length: 150)
-          %p.candidate_full_description.hide= candidate.description
+    .col-sm-8.col-sm-offset-2.text-left
+      - @election.candidates.each_slice(3).to_a.each do |three_candidates|
+        .row{style: "margin-bottom: 20px;"}
+          - three_candidates.each do |candidate|
+            .col-sm-4.candidate_block
+              = image_tag candidate.avatar.present? ? candidate.avatar.url : 'candidate_placeholder.jpg'
+              %h3= candidate.name
+              %p.candidate_description= truncate(candidate.description, length: 150)
+              %p.candidate_full_description.hide= candidate.description
 
-          .voting_block
-            %span.button-checkbox
-              %button.btn{"data-color" => "success", :type => "button", "data-id" => candidate.id, "data-state" => @vote.candidate_id == candidate.id ? "on" : "off", :class => @vote.candidate_id == candidate.id ? "btn-success active" : "btn-default", "data-vote" => @vote.id}= @vote.candidate_id == candidate.id ? :"Voted" : "Vote"
+              .voting_block
+                %span.button-checkbox
+                  %button.btn{"data-color" => "success", :type => "button", "data-id" => candidate.id, "data-state" => @vote.candidate_id == candidate.id ? "on" : "off", :class => @vote.candidate_id == candidate.id ? "btn-success active" : "btn-default", "data-vote" => @vote.id}= @vote.candidate_id == candidate.id ? :"Voted" : "Vote"
 

@@ -16,3 +16,13 @@
 .candidate_description, .candidate_full_description {
   cursor: pointer;
 }
+
+.voting_block {
+  position: absolute;
+  bottom: 0;
+}
+
+.col-md-4.candidate_block {
+  position: relative;
+  min-height: 460px;
+}
