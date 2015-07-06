@@ -3,7 +3,11 @@
     .row
       .col-md-8.text-left
         %h3= election.title
-        %p.small!= "Created by #{content_tag(:strong, User.find(election.created_by).name)} #{time_ago_in_words(election.created_at)} ago"
+        - if election.end_date > Time.now
+          %p.small!= "Created by #{content_tag(:strong, User.find(election.created_by).name)} #{time_ago_in_words(election.created_at)} ago, finishing in #{content_tag(:strong, distance_of_time_in_words(Time.now, election.end_date))}."
+        - else
+          %p.small!= "Created by #{content_tag(:strong, User.find(election.created_by).name)} #{time_ago_in_words(election.created_at)} ago, finished #{content_tag(:strong, time_ago_in_words(election.end_date))} ago."
+
       .col-md-4.text-right
         %button.btn.btn-default.show_election_button{:type => "button"}= link_to 'Vote', [current_organisation, election]
     .row
@@ -13,6 +17,7 @@
       .row
         .col-md-12.text-left
           .btn-group.btn-group-xs{:role =>"group"}
+            %button.btn.btn-default{:type => "button"}= link_to 'Results', results_organisation_election_path(current_organisation, election)
             %button.btn.btn-default{:type => "button"}= link_to 'Edit', edit_organisation_election_path(current_organisation, election)
             %button.btn.btn-default{:type => "button"}= link_to 'Delete', [current_organisation, election], :method => :delete, :data => { :confirm => 'Are you sure?' }
 %hr

@@ -1,6 +1,6 @@
 class ElectionsController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_election, only: [:show, :edit, :update, :destroy]
+  before_action :set_election, only: [:show, :edit, :update, :destroy, :results]
   before_action :find_elections
 
   respond_to :html
@@ -36,6 +36,15 @@ class ElectionsController < ApplicationController
   def destroy
     @election.destroy
     respond_with(current_organisation, @election)
+  end
+
+  def results
+    redirect_to :back unless current_organisation.is_admin?(current_user)
+    @results = []
+    @election.candidates.each_with_index do |c, i|
+      @results[i] = (c.votes & @election.votes).count
+    end
+    @winner = @election.candidates[@results.index(@results.max)]
   end
 
   private

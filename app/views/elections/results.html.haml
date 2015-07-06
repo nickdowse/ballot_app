@@ -1,0 +1,37 @@
+.container
+  .row.election_overview
+    .col-md-8.col-md-offset-2.text-left
+      %h1= "Results for #{@election.title}"
+      - if @election.end_date > Time.now
+        %p.small!= "Created by #{content_tag(:strong, User.find(@election.created_by).name)} #{time_ago_in_words(@election.created_at)} ago, finishing in #{content_tag(:strong, distance_of_time_in_words(Time.now, @election.end_date))}."
+      - else
+        %p.small!= "Created by #{content_tag(:strong, User.find(@election.created_by).name)} #{time_ago_in_words(@election.created_at)} ago, finished #{content_tag(:strong, time_ago_in_words(@election.end_date))} ago."
+
+  %hr.col-md-10.col-md-offset-1
+  %hr
+  
+  .row.election_overview
+    .col-md-8.col-md-offset-2.text-left
+      #results_graph{ :style => 'height: 300px; margin: 2em auto 0 auto' }
+      :javascript
+        $(function () {
+          $('#results_graph').highcharts({
+            title: {
+              text: 'Results of the #{@election.title} election#{@election.end_date > Time.now ? " so far, the election has #{distance_of_time_in_words(Time.now, @election.end_date)} to go." : "finished #{content_tag(:strong, time_ago_in_words(@election.end_date))} ago."}'
+            },
+
+            subtitle: {
+              text: 'The winner #{@election.end_date > Time.now ? "so far is " : "was " }#{@winner.name}'
+            },
+
+
+            xAxis: {
+              categories: #{@election.candidates.map(&:name)}
+            },
+
+            series: [{
+              type: 'column',
+              data: #{@results},
+            }]
+          });
+        });

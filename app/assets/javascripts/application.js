@@ -16,3 +16,5 @@
 //= require bootstrap-sprockets
 //= require_tree .
 //= require message_block
+//= require highcharts
+//= require highcharts/highcharts-more

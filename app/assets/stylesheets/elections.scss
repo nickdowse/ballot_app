@@ -3,6 +3,11 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .individual_election {
+  .col-md-4.text-right {
+    .show_election_button {
+      margin-top: 0px;
+    }
+  }
 }
 
 .election_overview {
