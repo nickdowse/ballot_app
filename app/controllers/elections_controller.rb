@@ -1,7 +1,7 @@
 class ElectionsController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_election, only: [:show, :edit, :update, :destroy, :results]
-  before_action :find_elections
+  before_action :find_elections, only: [:index]
 
   respond_to :html
 
@@ -51,6 +51,7 @@ class ElectionsController < ApplicationController
 
     def set_election
       @election = current_organisation.elections.find(params[:id])
+      redirect_to :back if @election.end_date < Time.now && !current_organisation.is_admin?(current_user)
     end
 
     def find_elections
@@ -58,6 +59,6 @@ class ElectionsController < ApplicationController
     end
 
     def election_params
-      params.require(:election).permit(:title, :created_at, :created_by, :description)
+      params.require(:election).permit(:title, :created_at, :created_by, :description, :end_date)
     end
 end

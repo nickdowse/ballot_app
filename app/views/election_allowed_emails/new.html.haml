@@ -8,6 +8,10 @@
   .row.individual_election_allowed_email
     .col-md-8.col-md-offset-2
       = render 'form'
+  - current_organisation.users.select{|u| !@election.election_allowed_emails.map(&:email).include?(u.email)}.each do |u|
+    .row.individual_election_allowed_email
+      .col-md-8.col-md-offset-2
+        = render 'add_user_form', user: u
   %br
   %br
   .row.individual_election_allowed_email

@@ -14,6 +14,8 @@ class ApplicationController < ActionController::Base
       if org.present?
         @organisation = org
         return @organisation
+      else
+        return @organisation = current_user.organisations.first
       end
     end
   end

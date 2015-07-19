@@ -6,7 +6,7 @@
           %h1 Election users overview
           
         .col-md-4
-          %button.pull-right.btn.btn-default.show_election_button{:type => "button"}= link_to 'New user', new_organisation_election_election_allowed_email_path(current_organisation, @election)
+          %button.pull-right.btn.btn-default.show_election_button{:type => "button"}= link_to 'Add user', new_organisation_election_election_allowed_email_path(current_organisation, @election)
       %p.lead= "This is an overview of all of the users that can take part in the <em>#{link_to @election.title, organisation_election_path(current_organisation, @election)}</em>".html_safe
   %hr.col-md-10.col-md-offset-1
   - @election_allowed_emails.each do |election_allowed_email|

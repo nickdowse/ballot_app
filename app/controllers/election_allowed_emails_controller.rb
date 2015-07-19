@@ -52,6 +52,7 @@ class ElectionAllowedEmailsController < ApplicationController
   private
 
     def set_election
+      redirect_to :back unless current_organisation.is_admin?(current_user)
       @election = current_organisation.elections.find(params[:election_id])
     end
 

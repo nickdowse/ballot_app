@@ -16,10 +16,12 @@ class Election < ActiveRecord::Base
   scope :active, -> { where("state = 'published' or state = 'hidden'") }
 
   # Active record hooks
-  before_create :set_defaults
+  before_validation :set_defaults
+
 
   def set_defaults
     self.created_at = Time.now
+    self.state = "published"
   end
 
   def add_candidates(candidate_ids)

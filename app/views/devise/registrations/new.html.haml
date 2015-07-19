@@ -17,6 +17,6 @@
           .form-group
             = f.label :password_confirmation
             = f.password_field :password_confirmation, class: 'form-control'
-            - if current_organisation.present?
-              = f.hidden_field :organisation_id, value: current_organisation.id
+            - if params[:organisation_id].present?
+              = f.hidden_field :organisation_id, value: params[:organisation_id]
           = f.submit 'Sign up', :class => 'button right'

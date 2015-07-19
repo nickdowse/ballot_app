@@ -4,19 +4,19 @@
       .col-md-8.text-left
         %h3= candidate.name
         %p.small!= "Created #{time_ago_in_words(candidate.created_at)} ago"
-    .row
-      .col-md-12.text-left
-        %p.candidate_description= truncate(candidate.description, length: 150)
+        %p= truncate(candidate.description, length: 150)
+      .col-md-4.text-left
+        = image_tag candidate.avatar.present? ? candidate.avatar.url : 'candidate_placeholder.jpg'
+
     - if current_organisation.is_admin?(current_user) && @election
       .row
         .col-md-12.text-left
           .btn-group.btn-group-xs{:role =>"group"}
             %button.btn.btn-default{:type => "button"}= link_to 'Edit', edit_organisation_election_candidate_path(current_organisation, @election, candidate)
             %button.btn.btn-default{:type => "button"}= link_to 'Remove', remove_candidate_organisation_election_candidate_path(current_organisation, @election, candidate), :method => :post, :data => { :confirm => 'Are you sure?' }
-    -# - elsif current_organisation.is_admin?(current_user)
-    -#   .row
-    -#     .col-md-12.text-left
-    -#       .btn-group.btn-group-xs{:role =>"group"}
-    -#         %button.btn.btn-default{:type => "button"}= link_to 'Edit', edit_organisation_election_candidate_path(current_organisation, @election, candidate)
-    -#         %button.btn.btn-default{:type => "button"}= link_to 'Delete', [current_organisation, @election, candidate], :method => :delete, :data => { :confirm => 'Are you sure?' }
+    - if current_organisation.is_admin?(current_user) && !@election
+      .row
+        .col-md-12.text-left
+          %p= "Elections: #{candidate.elections.map{|e| link_to e.title, organisation_election_path(current_organisation, e)}.join(', ')}".html_safe
+%hr.col-md-10.col-md-offset-1
 %hr

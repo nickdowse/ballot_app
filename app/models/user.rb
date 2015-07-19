@@ -1,16 +1,11 @@
 class User < ActiveRecord::Base
   enum role: [:user, :admin]
-  after_initialize :set_default_role, :if => :new_record?
   validate :allowed_email, :on => :create
   has_many :organisation_users
   has_many :organisations, through: :organisation_users
   has_many :votes
   after_create :create_organisation
   # after_create :send_confirmation
-
-  def set_default_role
-    self.role ||= :user
-  end
 
   def allowed_email
     return if self.organisations.length == 0
