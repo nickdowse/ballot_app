@@ -17,7 +17,8 @@
       .row
         .col-md-12.text-left
           .btn-group.btn-group-xs{:role =>"group"}
-            %button.btn.btn-default{:type => "button"}= link_to 'Results', results_organisation_election_path(current_organisation, election)
+            - if election.candidates.count > 0
+              %button.btn.btn-default{:type => "button"}= link_to 'Results', results_organisation_election_path(current_organisation, election)
             %button.btn.btn-default{:type => "button"}= link_to 'Edit', edit_organisation_election_path(current_organisation, election)
             %button.btn.btn-default{:type => "button"}= link_to 'Delete', [current_organisation, election], :method => :delete, :data => { :confirm => 'Are you sure?' }
 %hr

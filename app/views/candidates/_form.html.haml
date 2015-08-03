@@ -14,7 +14,7 @@
     = f.text_area :description, class: "form-control"
     = f.hidden_field :created_by, value: current_user.id
   .field.form-group
-    = f.label :avatar
+    = f.label :avatar, "Picture"
     = f.file_field :avatar
   .actions
     = f.submit 'Save', class: "btn btn-default"

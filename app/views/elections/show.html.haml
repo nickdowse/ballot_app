@@ -9,7 +9,11 @@
           - if current_organisation.is_admin?(current_user)
             %button.pull-right.btn.btn-default.show_election_button{:type => "button"}= link_to 'Edit', edit_organisation_election_path(current_organisation, @election)
       %p.small!= "Created by #{content_tag(:strong, User.find(@election.created_by).name)} #{time_ago_in_words(@election.created_at)} ago"
-      %p.lead= @election.description
+      - if @election.candidates.count > 0
+        %p.lead= @election.description
+      - else
+        %p.lead There are no candidates for this election
+
   %hr.col-sm-10.col-sm-offset-1
 
   .row
