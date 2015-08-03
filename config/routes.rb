@@ -34,5 +34,9 @@ Rails.application.routes.draw do
   devise_scope :user do
     match '/sign-in' => "devise/sessions#new", :as => :login, via: [:get]
   end
-  resources :users
+  resources :users do
+    member do
+      patch :change_role
+    end
+  end
 end

@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   after_create :create_organisation
   # after_create :send_confirmation
 
+  attr_accessor :role
+
   def allowed_email
     return if self.organisations.length == 0
     if self.organisation.allowed_emails.pluck(:email).include?(self.email)

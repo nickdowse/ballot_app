@@ -10,7 +10,15 @@
 
   %hr.col-md-10.col-md-offset-1
   %hr
-  .row.election_overview
+  .row.user_overview
     .col-md-8.col-md-offset-2.text-left
-      - current_organisation.users.each do |user|
-        = render 'users/user', user: user
+      %table
+        %thead
+          %th
+            %td
+            %td
+            %td
+        %tbody
+          - current_organisation.users.each do |user|
+            %tr
+              = render 'users/user', user: user

@@ -1,7 +1,7 @@
 %td
-  = link_to user.email, user
+  = user.email
 %td
-  = form_for(user) do |f|
+  = form_for user, url: change_role_user_path(user) do |f|
     = f.select(:role, ["user", "admin"], selected: current_organisation.is_admin?(user) ? "admin" : "user" )
     = f.submit 'Change Role', :class => 'button-xs'
 %td

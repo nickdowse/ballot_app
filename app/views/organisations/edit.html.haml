@@ -4,7 +4,6 @@
       .row
         .col-md-8
           %h1 Edit organisation
-          
 
       = render 'form'
 
@@ -12,11 +11,11 @@
       %br
       These are the email address users of #{@organisation.name} can sign up with:
       - @organisation.allowed_emails.each do |e|
-        %p #{e.email}
+        %p - #{e.email}
 
       %br
       %br
-      You can also create new ones:
+      You can also add new emails:
       %br
       %br
       = form_for @organisation.allowed_emails.new, :url => organisation_allowed_emails_path(current_organisation), method: :post do |f|

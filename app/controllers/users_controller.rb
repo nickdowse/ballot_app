@@ -25,6 +25,11 @@ class UsersController < ApplicationController
     redirect_to users_path, :notice => "User deleted."
   end
 
+  def change_role
+    OrganisationUser.where(user_id: current_user.id, organisation_id: current_organisation.id).update_all({role: params[:user][:role]})
+    redirect_to :back
+  end
+
   private
 
   def secure_params
