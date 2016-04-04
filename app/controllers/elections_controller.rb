@@ -10,7 +10,7 @@ class ElectionsController < ApplicationController
   end
 
   def show
-    @vote = @election.votes.where(user_id: current_user.id).first || Vote.new
+    @vote = @election.votes.where(user_id: current_user.id).first
     respond_with(current_organisation, @election)
   end
 

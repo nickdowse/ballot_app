@@ -17,8 +17,8 @@ $(document).ready ->
     $(value).children('button').first().prepend("<i class=\"state-icon " + is_active + "\"></i> ")
   
   $('.button-checkbox').on 'click', (e) ->
-    $checkbox = $(this)
-    if $checkbox.children("button").first().hasClass('active')
+    checkbox = $(this)
+    if checkbox.children("button").first().hasClass('active')
       e.preventDefault()
     else
       $.each $('.button-checkbox'), (index, value) ->
@@ -26,36 +26,25 @@ $(document).ready ->
         $(value).children("button").first().removeClass('active')
         $(value).children("button").first().removeClass('btn-success')
         $(value).children("button").first().addClass('btn-default')
-        $(value).children("button").first().addClass('btn-default')
         is_active = "glyphicon glyphicon-unchecked"
         if $(value).children('button').first().hasClass('active')
           is_active = "glyphicon glyphicon-check"
         $(value).children('button').first().prepend("<i class=\"state-icon " + is_active + "\"></i> ")
-        
-      $($checkbox).children('button').first().addClass('active')
-      $($checkbox).children("button").first().addClass('btn-success')
-      $($checkbox).children("button").first().removeClass('btn-default')
-      $($checkbox).children('button').first().text('Voted')
+
+      $(checkbox).children('button').first().addClass('active')
+      $(checkbox).children("button").first().addClass('btn-success')
+      $(checkbox).children("button").first().removeClass('btn-default')
+      $(checkbox).children('button').first().text('Voted')
       is_active = "glyphicon glyphicon-unchecked"
-      if $($checkbox).children('button').first().hasClass('active')
+      if $(checkbox).children('button').first().hasClass('active')
         is_active = "glyphicon glyphicon-check"
-      $($checkbox).children('button').first().prepend("<i class=\"state-icon " + is_active + "\"></i> ")
-
-      send_off_vote($checkbox)
-
-  organisation_id = () ->
-    location.pathname.split("/")[2]
-
-  election_id = () ->
-    location.pathname.split("/")[4]
-
-  vote_id = (checkbox) ->
-    return $(checkbox).children('button').first().data('vote')
+      $(checkbox).children('button').first().prepend("<i class=\"state-icon " + is_active + "\"></i> ")
+      send_off_vote(checkbox)
 
   send_off_vote = (checkbox) ->
     $.ajax({
-      url:     "/organisations/#{organisation_id()}/elections/#{election_id()}/votes/#{vote_id(checkbox)}?candidate_id=#{$(checkbox).children('button').first().data('id')}",
-      type:    "PATCH",
+      url:     $(checkbox).children("button").data('url'),
+      type:    if $('.election_overview').data('has-voted') == true then "PATCH" else "POST",
       success: (data) ->
         # here notify of successful vote
       ,

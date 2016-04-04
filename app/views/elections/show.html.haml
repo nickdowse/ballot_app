@@ -1,5 +1,5 @@
 .container
-  .row.election_overview
+  .row.election_overview{data: { has_voted: "#{@vote.present?}"}}
     .col-sm-8.col-sm-offset-2.text-left
       .row
         .col-sm-8
@@ -26,8 +26,12 @@
               %h3= candidate.name
               %p.candidate_description= truncate(candidate.description, length: 150)
               %p.candidate_full_description.hide= candidate.description
-
-              .voting_block
-                %span.button-checkbox
-                  %button.btn{"data-color" => "success", :type => "button", "data-id" => candidate.id, "data-state" => @vote.candidate_id == candidate.id ? "on" : "off", :class => @vote.candidate_id == candidate.id ? "btn-success active" : "btn-default", "data-vote" => @vote.id}= @vote.candidate_id == candidate.id ? :"Voted" : "Vote"
+              - if @vote
+                .voting_block
+                  %span.button-checkbox
+                    %button.btn{type: "button", class: @vote.candidate_id == candidate.id ? "btn-success active" : "btn-default", data: {color: "success", id: candidate.id, state: @vote.candidate_id == candidate.id ? "on" : "off", url: organisation_election_vote_path(current_organisation, @election, @vote, candidate_id: candidate.id)}}= @vote.candidate_id == candidate.id ? "Voted" : "Vote"
+              - else
+                .voting_block
+                  %span.button-checkbox
+                    %button.btn{type: "button", class: "btn-default", data: {color: "success", id: candidate.id, state: "off", url: organisation_election_votes_path(current_organisation, @election, candidate_id: candidate.id)}}= "Vote"
 
