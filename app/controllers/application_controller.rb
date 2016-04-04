@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
         @organisation = org
         return @organisation
       else
-        return @organisation = current_user.organisations.first
+        return nil
       end
     end
   end
