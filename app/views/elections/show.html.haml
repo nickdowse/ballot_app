@@ -22,7 +22,7 @@
         .row{style: "margin-bottom: 20px;"}
           - three_candidates.each do |candidate|
             .col-sm-4.candidate_block
-              = image_tag candidate.avatar.present? ? candidate.avatar.url : 'candidate_placeholder.jpg'
+              = image_tag candidate.avatar.present? ? candidate.avatar.url(:square) : 'candidate_placeholder.jpg'
               %h3= candidate.name
               %p.candidate_description= truncate(candidate.description, length: 150)
               %p.candidate_full_description.hide= candidate.description
