@@ -31,6 +31,7 @@ class OrganisationsController < ApplicationController
       flash[:notice] = 'Organisation was successfully updated.'
     else
       flash[:error] = 'Organisation could not be updated.'
+    end
     respond_with(@organisation)
   end
 

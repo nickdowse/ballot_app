@@ -17,7 +17,7 @@
         $(function () {
           $('#results_graph').highcharts({
             title: {
-              text: 'Results of the #{@election.title} election#{@election.end_date > Time.now ? " so far, the election has #{distance_of_time_in_words(Time.now, @election.end_date)} to go." : "finished #{content_tag(:strong, time_ago_in_words(@election.end_date))} ago."}'
+              text: 'Results of the <strong>#{@election.title}</strong> election #{@election.end_date > Time.now ? " so far, the election has #{distance_of_time_in_words(Time.now, @election.end_date)} to go." : "finished #{content_tag(:strong, time_ago_in_words(@election.end_date))} ago."}'
             },
 
             subtitle: {
