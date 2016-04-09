@@ -12,7 +12,7 @@ class Election < ActiveRecord::Base
   scope :published, -> { where(state: "published") }
   scope :hidden, -> { where(state: "hidden") }
   scope :expired, -> { where("state = 'expired' or end_date < ?", Time.now) }
-  scope :active, -> { where("state = 'published' or state = 'hidden'") }
+  scope :active, -> { where("state = 'published' or state = 'hidden' AND end_date > ?", Time.now) }
 
   # Active record hooks
   before_create :set_defaults
@@ -34,5 +34,9 @@ class Election < ActiveRecord::Base
 
   def remove_candidate(candidate)
     CandidateElection.where({candidate_id: candidate.id, election_id: self.id}).delete_all
+  end
+
+  def finished?
+    end_date < Time.now
   end
 end
