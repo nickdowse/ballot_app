@@ -1,6 +1,5 @@
 class Election < ActiveRecord::Base
   belongs_to :organisation
-  has_many :election_allowed_emails
 
   has_many :candidate_elections
   has_many :candidates, through: :candidate_elections

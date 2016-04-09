@@ -1,6 +1,5 @@
 class User < ActiveRecord::Base
   enum role: [:user, :admin]
-  validate :allowed_email, :on => :create
   has_many :organisation_users
   has_many :organisations, through: :organisation_users
   has_many :votes
@@ -8,15 +7,6 @@ class User < ActiveRecord::Base
   # after_create :send_confirmation
 
   attr_accessor :role
-
-  def allowed_email
-    return if self.organisations.length == 0
-    if self.organisation.allowed_emails.pluck(:email).include?(self.email)
-      return true
-    else
-      errors.add(:email, "Sorry, that is not an approved email address. Please contact your admin #{self.organisation.admins.first.email}")
-    end
-  end
 
   def create_organisation
     return if self.organisations.length > 0

@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-
-
-
   resources :organisations do
     member do
       get :users
@@ -10,9 +7,7 @@ Rails.application.routes.draw do
       post :remove_user
       get :org_candidates
     end
-    resources :allowed_emails
     resources :elections do
-      resources :election_allowed_emails
       resources :candidates do
         collection do
           get :bulk_add

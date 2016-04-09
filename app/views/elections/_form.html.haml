@@ -20,7 +20,5 @@
   .actions
     = f.submit 'Save', class: "btn btn-default"
 
-    - if @election.id.present?
-      %button.btn.btn-default{:type => "button"}= link_to 'Edit allowed users', organisation_election_election_allowed_emails_path(current_organisation, @election)
-
+    - if @election.persisted?
       %button.btn.btn-default{:type => "button"}= link_to 'Edit candidates', organisation_election_candidates_path(current_organisation, @election)

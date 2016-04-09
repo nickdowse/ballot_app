@@ -13,11 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20150704130415) do
 
-  create_table "allowed_emails", force: :cascade do |t|
-    t.string  "email",           limit: 255
-    t.integer "organisation_id", limit: 4
-  end
-
   create_table "candidate_elections", id: false, force: :cascade do |t|
     t.integer  "candidate_id", limit: 4
     t.integer  "election_id",  limit: 4
@@ -43,16 +38,6 @@ ActiveRecord::Schema.define(version: 20150704130415) do
     t.string   "avatar_content_type", limit: 255
     t.integer  "avatar_file_size",    limit: 4
     t.datetime "avatar_updated_at"
-  end
-
-  create_table "election_allowed_emails", force: :cascade do |t|
-    t.string   "email",           limit: 255
-    t.datetime "created_at",                                  null: false
-    t.integer  "election_id",     limit: 4
-    t.integer  "organisation_id", limit: 4
-    t.string   "created_by",      limit: 255
-    t.datetime "updated_at",                                  null: false
-    t.boolean  "deleted",         limit: 1,   default: false
   end
 
   create_table "elections", force: :cascade do |t|

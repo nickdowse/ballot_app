@@ -46,7 +46,11 @@ class CandidatesController < ApplicationController
   end
 
   def update
-    flash[:notice] = 'Candidate was successfully updated.' if @candidate.update(candidate_params)
+    if @candidate.update(candidate_params)
+      flash[:notice] = 'Candidate was successfully updated.'
+    else
+      flash[:error] = 'Candidate was successfully updated.'
+    end
     redirect_to edit_organisation_election_candidate_path(current_organisation, @election, @candidate)
   end
 

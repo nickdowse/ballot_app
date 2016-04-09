@@ -6,7 +6,7 @@
         %p.small!= "Created #{time_ago_in_words(candidate.created_at)} ago"
         %p= truncate(candidate.description, length: 150)
       .col-md-4.text-left
-        = image_tag candidate.avatar.present? ? candidate.avatar.url : 'candidate_placeholder.jpg'
+        = image_tag candidate.avatar.present? ? candidate.avatar.url(:square) : 'candidate_placeholder.jpg'
 
     - if current_organisation.is_admin?(current_user) && @election
       .row

@@ -6,20 +6,3 @@
           %h1 Edit organisation
 
       = render 'form'
-
-      %br
-      %br
-      These are the email address users of #{@organisation.name} can sign up with:
-      - @organisation.allowed_emails.each do |e|
-        %p - #{e.email}
-
-      %br
-      %br
-      You can also add new emails:
-      %br
-      %br
-      = form_for @organisation.allowed_emails.new, :url => organisation_allowed_emails_path(current_organisation), method: :post do |f|
-        = f.text_field :email, :placeholder => "Email", class: "form-control"
-        = f.hidden_field :organisation_id, value: current_organisation.id
-        = f.submit "Create", class: "btn btn-default"
-

@@ -27,7 +27,10 @@ class OrganisationsController < ApplicationController
   end
 
   def update
-    flash[:notice] = 'Organisation was successfully updated.' if @organisation.update(organisation_params)
+    if @organisation.update(organisation_params)
+      flash[:notice] = 'Organisation was successfully updated.'
+    else
+      flash[:error] = 'Organisation could not be updated.'
     respond_with(@organisation)
   end
 
