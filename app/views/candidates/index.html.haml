@@ -7,7 +7,8 @@
       - if @election.present?
         %p.lead= "This is an overview of all of the candidates in the #{link_to @election.title, organisation_election_path(current_organisation, @election)}.".html_safe
       - else
-        %p.lead= "This is an overview of all of the candidates in the <em>#{link_to current_organisation.name, edit_organisation_path(current_organisation)}</em> organisation. You can create a new candidate from an election.".html_safe
+        %p.lead= "This is an overview of all of the candidates in the <em>#{link_to current_organisation.name, edit_organisation_path(current_organisation)}</em> organisation.".html_safe
+      %p.small-text= "You can add more candidates here: #{link_to('here', new_organisation_candidate_path(current_organisation))}".html_safe
   %hr.col-md-10.col-md-offset-1
   %hr
   - @candidates.each do |candidate|

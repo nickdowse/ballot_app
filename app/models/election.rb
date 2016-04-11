@@ -6,20 +6,14 @@ class Election < ActiveRecord::Base
 
   has_many :votes
 
-  validates_inclusion_of :state, :in => ["draft", "published", "hidden", "expired"], :allow_nil => false
-
-  scope :draft, -> { where(state: "draft") }
-  scope :published, -> { where(state: "published") }
-  scope :hidden, -> { where(state: "hidden") }
-  scope :expired, -> { where("state = 'expired' or end_date < ?", Time.now) }
-  scope :active, -> { where("state = 'published' or state = 'hidden' AND end_date > ?", Time.now) }
+  scope :expired, -> { where("end_date < ?", Time.now) }
+  scope :active, -> { where("end_date > ?", Time.now) }
 
   # Active record hooks
   before_create :set_defaults
 
   def set_defaults
     self.created_at = Time.now
-    self.state = "published"
   end
 
   def add_candidates(candidate_ids)

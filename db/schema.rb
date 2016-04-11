@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20150704130415) do
 
-  create_table "candidate_elections", id: false, force: :cascade do |t|
+  create_table "candidate_elections", force: :cascade do |t|
     t.integer  "candidate_id", limit: 4
     t.integer  "election_id",  limit: 4
     t.datetime "created_at"
@@ -48,7 +48,6 @@ ActiveRecord::Schema.define(version: 20150704130415) do
     t.integer  "organisation_id", limit: 4,     null: false
     t.text     "description",     limit: 65535
     t.datetime "end_date"
-    t.string   "state",           limit: 255
   end
 
   create_table "organisation_users", id: false, force: :cascade do |t|

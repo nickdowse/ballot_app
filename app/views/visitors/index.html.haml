@@ -4,7 +4,7 @@
       .row
         .col-sm-6.col-sm-offset-3
           %h4.hero-heading Run an election online, how you want it. Voting restricted on emails, and much more.
-          %a.button.button-primary{:href => "http://ballot-app.herokuapp.com/users/sign_up"} Sign up now
+          %a.button.button-primary{:href => new_user_registration_path} Sign up now
   .section.values
     .container
       .row
@@ -24,5 +24,5 @@
     .container
       %h3.section-heading Need help getting started?
       %p.section-description= "The Ballot App is very easy to use, you can sign up using the button below, or alternatively get in touch through #{mail_to 'me@nickdowse.co.nz'}.".html_safe
-      %a.button.button-primary{:href => "http://ballot-app.herokuapp.com/users/sign_up"} Sign up for free
+      %a.button.button-primary{:href => new_user_registration_path} Sign up for free
 %link{:href => "//fonts.googleapis.com/css?family=Raleway:400,300,600", :rel => "stylesheet", :type => "text/css"}/

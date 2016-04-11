@@ -20,10 +20,12 @@ class ElectionsController < ApplicationController
   end
 
   def create
-    if current_organisation.elections.create(election_params)
+    if current_organisation.elections.create!(election_params)
       flash[:notice] = 'Election was successfully created.'
+      redirect_to organisation_elections_path(current_organisation) and return
     else
       flash[:error] = 'Election could not be created.'
+      redirect_to :back and return
     end
   end
 
@@ -33,10 +35,12 @@ class ElectionsController < ApplicationController
     else
       flash[:error] = 'Election could not be updated.'
     end
+    redirect_to edit_organisation_election_path(current_organisation, @election)
   end
 
   def destroy
     @election.destroy
+    redirect_to organisation_elections_path(current_organisation)
   end
 
   def results

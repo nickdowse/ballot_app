@@ -8,6 +8,7 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
+gem 'jquery-turbolinks' # so jquery is still reloaded without a page refresh
 
 group :development, :test do
   gem 'byebug'
@@ -20,7 +21,6 @@ gem 'devise'
 gem 'message_block'
 gem 'aws-sdk', '< 2.0'
 gem 'paperclip'
-gem "highcharts-rails", "~> 3.0.0"
 
 group :development do
   gem 'erb2haml'

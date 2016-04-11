@@ -19,7 +19,6 @@ class CandidatesController < ApplicationController
 
   def new
     @candidate = current_organisation.candidates.new
-
   end
 
   def edit

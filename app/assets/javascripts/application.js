@@ -14,7 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
-//= require_tree .
 //= require message_block
-//= require highcharts
-//= require highcharts/highcharts-more
+//= require jquery.turbolinks
+//= require_tree .
