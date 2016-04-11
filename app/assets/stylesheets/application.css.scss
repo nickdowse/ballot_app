@@ -25,6 +25,11 @@ header .row {
   z-index: 50000 !important;
 }
 
+.flash_message_container {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
 .flash_messages {
   .alert {
     background-color: red;

@@ -20,13 +20,6 @@ ActiveRecord::Schema.define(version: 20150704130415) do
     t.datetime "updated_at"
   end
 
-  create_table "candidate_votes", id: false, force: :cascade do |t|
-    t.integer  "candidate_id", limit: 4
-    t.integer  "vote_id",      limit: 4
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "candidates", force: :cascade do |t|
     t.string   "name",                limit: 255
     t.integer  "organisation_id",     limit: 4
@@ -44,8 +37,8 @@ ActiveRecord::Schema.define(version: 20150704130415) do
     t.string   "title",           limit: 255
     t.datetime "created_at",                    null: false
     t.integer  "created_by",      limit: 4
-    t.datetime "updated_at",                    null: false
     t.integer  "organisation_id", limit: 4,     null: false
+    t.datetime "updated_at",                    null: false
     t.text     "description",     limit: 65535
     t.datetime "end_date"
   end
