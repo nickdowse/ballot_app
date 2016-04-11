@@ -6,7 +6,7 @@ This is app is a a web service that allows you to sign up, create an election, h
 
 It uses standard Ruby on Rails technologies such as [CoffeeScript](http://coffeescript.org/), [SCSS](http://sass-lang.com/documentation/file.SASS_REFERENCE.html), and [HAML](http://haml.info/), as well as [Bootstrap](https://github.com/twbs/bootstrap-sass) for styles on the frontend.
 
-In the backend it uses  Devise (https://github.com/plataformatec/devise) for user authentication (including sign ups, forgotten passwords etc), and [Paperclip](https://github.com/thoughtbot/paperclip) to manage file uploads. It uses [MySQL](http://dev.mysql.com/downloads/mysql/) for the database.
+In the backend it uses  [Devise](https://github.com/plataformatec/devise) for user authentication (including sign ups, forgotten passwords etc), and [Paperclip](https://github.com/thoughtbot/paperclip) to manage file uploads. It uses [MySQL](http://dev.mysql.com/downloads/mysql/) for the database.
 
 It also uses [Bundler](http://bundler.io/) to manage gems (the external libraries that the app uses), and [Mailcatcher]((https://mailcatcher.me/)) to handle all emails when developing locally.
 
