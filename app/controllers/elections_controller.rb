@@ -50,7 +50,7 @@ class ElectionsController < ApplicationController
       results[index] = (candidate.votes & @election.votes).count
     end
     @winning_vote_count = results.max
-    @winner = @election.candidates[results.index(@winning_vote_count)]
+    @leader = @election.candidates[results.index(@winning_vote_count)]
   end
 
   def candidates

@@ -13,4 +13,7 @@
   .row.election_overview
     .col-md-8.col-md-offset-2.text-left
       = "Results of the <strong>#{@election.title}</strong> election #{@election.end_date > Time.now ? " so far, the election has #{distance_of_time_in_words(Time.now, @election.end_date)} to go." : "finished #{content_tag(:strong, time_ago_in_words(@election.end_date))} ago."}".html_safe
-      = "The winner was: <strong>#{@winner.name}</strong> with #{@winning_vote_count == 1 ? '1 vote' : @votes + ' votes'}.".html_safe
+      - if @election.finished?
+        = "The winner was: <strong>#{@leader.name}</strong> with #{@winning_vote_count == 1 ? '1 vote' : @votes + ' votes'}.".html_safe
+      - else
+        = "<strong>#{@leader.name}</strong> is currently leading the voting with #{@winning_vote_count == 1 ? '1 vote' : @votes + ' votes'}.".html_safe
