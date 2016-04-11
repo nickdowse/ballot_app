@@ -8,7 +8,7 @@
         .col-sm-4
           - if current_organisation.is_admin?(current_user)
             %button.pull-right.btn.btn-default.show_election_button{:type => "button"}= link_to 'Edit', edit_organisation_election_path(current_organisation, @election)
-      %p.small!= "Created by #{content_tag(:strong, User.find(@election.created_by).name)} #{time_ago_in_words(@election.created_at)} ago"
+      %p.small-text= "Created by #{content_tag(:strong, User.find(@election.created_by).name)} #{time_ago_in_words(@election.created_at)} ago".html_safe
       - if @election.candidates.count > 0
         %p.lead= @election.description
       - else

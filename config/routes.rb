@@ -5,23 +5,14 @@ Rails.application.routes.draw do
       post :make_admin
       post :make_user
       post :remove_user
-      get :org_candidates
     end
     resources :elections do
-      resources :candidates do
-        collection do
-          get :bulk_add
-          post :add_candidates_to_election
-        end
-        member do
-          post :remove_candidate
-        end
-      end
       resources :votes
       member do
         get :results
       end
     end
+    resources :candidates
   end
 
   root to: 'visitors#index'

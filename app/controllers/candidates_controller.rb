@@ -1,48 +1,37 @@
 class CandidatesController < ApplicationController
-  before_action :set_election
+
+  before_action :find_election, only: [:index]
   before_action :set_candidate, only: [:show, :edit, :update, :destroy, :remove_candidate]
   before_action :validate_organisation, only: [:show, :edit, :update, :destroy, :remove_candidate]
 
   respond_to :html
 
   def index
-    @candidates = @election.candidates.all.order("created_at DESC")
-    respond_with(current_organisation, @election)
+    if @election.present?
+      @candidates = @election.candidates.order("created_at DESC")
+    else
+      @candidates = current_organisation.candidates.all.order("created_at DESC")
+    end
   end
 
   def show
-    respond_with(current_organisation, @election, @candidate)
   end
 
   def new
-    @candidate = @election.candidates.new
-    respond_with(current_organisation, @election, @candidate)
+    @candidate = current_organisation.candidates.new
+
   end
 
   def edit
   end
 
-  def bulk_add
-    @candidates = (current_organisation.candidates.all.order("created_at DESC") - @election.candidates)
-  end
-
-  def add_candidates_to_election
-    @election.add_candidates(params[:candidates])
-    redirect_to organisation_election_candidates_path(current_organisation, @election)
-  end
-
-  def remove_candidate
-    @election.remove_candidate(@candidate)
-    redirect_to organisation_election_candidates_path(current_organisation, @election)
-  end
-
   def create
-    if @election.candidates.create(candidate_params)
+    if current_organisation.candidates.create(candidate_params)
       flash[:notice] = 'Candidate was successfully created.'
     else
       flash[:error] = 'Candidate could not be created.'
     end
-    redirect_to organisation_election_candidates_path(current_organisation, @election)
+    redirect_to organisation_candidates_path(current_organisation)
   end
 
   def update
@@ -51,12 +40,12 @@ class CandidatesController < ApplicationController
     else
       flash[:error] = 'Candidate was successfully updated.'
     end
-    redirect_to edit_organisation_election_candidate_path(current_organisation, @election, @candidate)
+    redirect_to edit_organisation_candidate_path(current_organisation, @candidate)
   end
 
   def destroy
     @candidate.update_attribute(:deleted, true)
-    redirect_to edit_organisation_election_candidates_path(current_organisation, @election, @election.candidates)
+    redirect_to edit_organisation_candidates_path(current_organisation, @election.candidates)
   end
 
   private
@@ -68,15 +57,17 @@ class CandidatesController < ApplicationController
       end
     end
 
-    def set_election
-      @election = current_organisation.elections.find(params[:election_id])
+    def find_election
+      if params[:election_id].present?
+        @election = current_organisation.elections.where(id: params[:election_id]).first
+      end
     end
 
     def set_candidate
-      @candidate = @election.candidates.find(params[:id])
+      @candidate = current_organisation.candidates.find(params[:id])
     end
 
     def candidate_params
-      params.require(:candidate).permit(:name, :organisation_id, :description, :avatar)
+      params.require(:candidate).permit(:name, :organisation_id, :description, :avatar, election_ids: [])
     end
 end

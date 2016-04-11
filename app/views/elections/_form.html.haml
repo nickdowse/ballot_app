@@ -21,4 +21,4 @@
     = f.submit 'Save', class: "btn btn-default"
 
     - if @election.persisted?
-      %button.btn.btn-default{:type => "button"}= link_to 'Edit candidates', organisation_election_candidates_path(current_organisation, @election)
+      %button.btn.btn-default{:type => "button"}= link_to 'Edit candidates', organisation_candidates_path(current_organisation, election_id: @election)

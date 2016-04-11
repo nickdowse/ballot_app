@@ -1,51 +1,58 @@
 class ElectionsController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_election, only: [:show, :edit, :update, :destroy, :results]
+  before_action :set_election, only: [:show, :edit, :update, :destroy, :results, :candidates]
   before_action :find_elections, only: [:index]
 
   respond_to :html
 
   def index
-    respond_with(current_organisation, @elections)
   end
 
   def show
     @vote = @election.votes.where(user_id: current_user.id).first
-    respond_with(current_organisation, @election)
   end
 
   def new
     @election = Election.new
-    respond_with(current_organisation, @election)
   end
 
   def edit
   end
 
   def create
-    @election = current_organisation.elections.new(election_params)
-    flash[:notice] = 'Election was successfully created.' if @election.save
-    respond_with(current_organisation, @election)
+    if current_organisation.elections.create(election_params)
+      flash[:notice] = 'Election was successfully created.'
+    else
+      flash[:error] = 'Election could not be created.'
+    end
   end
 
   def update
-    flash[:notice] = 'Election was successfully updated.' if @election.update(election_params)
-    respond_with(current_organisation, @election)
+    if @election.update(election_params)
+      flash[:notice] = 'Election was successfully updated.'
+    else
+      flash[:error] = 'Election could not be updated.'
+    end
   end
 
   def destroy
     @election.destroy
-    respond_with(current_organisation, @election)
   end
 
   def results
     redirect_to :back unless current_organisation.is_admin?(current_user)
-    @results = []
-    @election.candidates.each_with_index do |c, i|
-      @results[i] = (c.votes & @election.votes).count
+    results = []
+    @election.candidates.each_with_index do |candidate, index|
+      results[index] = (candidate.votes & @election.votes).count
     end
-    @winner = @election.candidates[@results.index(@results.max)]
+    @winning_vote_count = results.max
+    @winner = @election.candidates[results.index(@winning_vote_count)]
   end
+
+  def candidates
+    @candidates = @election.candidates
+  end
+
 
   private
 

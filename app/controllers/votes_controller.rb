@@ -6,12 +6,10 @@ class VotesController < ApplicationController
 
   def index
     @votes = @election.votes.all
-    respond_with(@votes)
   end
 
   def new
     @vote = Vote.new
-    respond_with(@vote)
   end
 
   def edit

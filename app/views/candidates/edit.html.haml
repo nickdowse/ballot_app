@@ -3,7 +3,7 @@
     .col-md-8.col-md-offset-2.text-left
       .row
         %h3= "Edit #{@candidate.name}"
-        %p.small!= "Created #{time_ago_in_words(@candidate.created_at)} ago"
+        %p.small-text= "Created #{time_ago_in_words(@candidate.created_at)} ago".html_safe
   .row
     .col-md-8.col-md-offset-2.text-left
   .row.election_overview

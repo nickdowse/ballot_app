@@ -5,16 +5,13 @@ class OrganisationsController < ApplicationController
 
   def index
     @organisations = Organisation.all
-    respond_with(@organisations)
   end
 
   def show
-    respond_with(@organisation)
   end
 
   def new
     @organisation = Organisation.new
-    respond_with(@organisation)
   end
 
   def edit
@@ -23,7 +20,6 @@ class OrganisationsController < ApplicationController
   def create
     @organisation = Organisation.new(organisation_params)
     flash[:notice] = 'Organisation was successfully created.' if @organisation.save
-    respond_with(@organisation)
   end
 
   def update
@@ -32,7 +28,6 @@ class OrganisationsController < ApplicationController
     else
       flash[:error] = 'Organisation could not be updated.'
     end
-    respond_with(@organisation)
   end
 
   def users
@@ -41,11 +36,6 @@ class OrganisationsController < ApplicationController
 
   def destroy
     @organisation.destroy
-    respond_with(@organisation)
-  end
-
-  def org_candidates
-    @candidates = current_organisation.candidates.order("created_at DESC")
   end
 
   private

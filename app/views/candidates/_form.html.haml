@@ -1,7 +1,7 @@
-= form_for [current_organisation, @election, @candidate] do |f|
-  - if @election.errors.any?
+= form_for [current_organisation, @candidate] do |f|
+  - if @candidate.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@election.errors.count, "error")} prohibited this election from being saved:"
+      %h2= "#{pluralize(@candidate.errors.count, "error")} prohibited this election from being saved:"
       %ul
         - @election.errors.full_messages.each do |msg|
           %li= msg
@@ -12,10 +12,16 @@
   .field.form-group
     = f.label :description
     = f.text_area :description, class: "form-control"
-    = f.hidden_field :created_by, value: current_user.id
   .field.form-group
     = f.label :avatar, "Picture"
     = f.file_field :avatar
+  .field.form-group
+    = f.label :elections, "Elections"
+    = f.file_field :elections
+  - if current_organisation.elections.count > 0
+    %p Add/remove elections:
+    = f.label(:election_ids, 'Elections')
+    = f.select :election_ids, options_for_multiple_select(current_organisation.elections.pluck(:title), current_organisation.elections.pluck(:id)), {}, { multiple: true, size: 5 }
   .actions
     = f.submit 'Save', class: "btn btn-default"
     %button.btn.btn-default{:type => "button"}= link_to 'Delete', [current_organisation, @election, @candidate], :method => :delete, :data => { :confirm => 'Are you sure?' }
