@@ -8,7 +8,7 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
-gem 'jquery-turbolinks' # so jquery is still reloaded without a page refresh
+gem 'jquery-turbolinks' # so that jquery is still reloaded without a page refresh
 
 group :development, :test do
   gem 'byebug'
