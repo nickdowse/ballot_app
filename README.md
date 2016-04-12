@@ -6,7 +6,7 @@ This is app is a a web service that allows you to sign up, create an election, h
 
 It uses standard Ruby on Rails technologies such as [CoffeeScript](http://coffeescript.org/), [SCSS](http://sass-lang.com/documentation/file.SASS_REFERENCE.html), and [HAML](http://haml.info/), as well as [Bootstrap](https://github.com/twbs/bootstrap-sass) for styles on the frontend.
 
-In the backend it uses  [Devise](https://github.com/plataformatec/devise) for user authentication (including sign ups, forgotten passwords etc), and [Paperclip](https://github.com/thoughtbot/paperclip) to manage file uploads. It uses [MySQL](http://dev.mysql.com/downloads/mysql/) for the database.
+In the backend it uses  [Devise](https://github.com/plataformatec/devise) for user authentication (including sign ups, forgotten passwords etc), and [Paperclip](https://github.com/thoughtbot/paperclip) to manage file uploads. It uses Sqlite for the database.
 
 It also uses [Bundler](http://bundler.io/) to manage gems (the external libraries that the app uses), and [Mailcatcher]((https://mailcatcher.me/)) to handle all emails when developing locally.
 
@@ -31,11 +31,9 @@ Once that has installed start mailcatcher by running the command:
 
 in the app folder.
 
-Once you've done this it's time to create a database in MySQL:
+Once you've done this it's time to create a database in Sqlite:
 
-    `mysqladmin -u root create ballot_app`
-
-(If you've set a password for your root user in mysql then you'll have to run the command with the -p option instead: `mysqladmin -u root -p create ballot_app`)
+    `sqlite3`
 
 Once the database has been created we're nearly there! The final step is to get the database we just created into sync with what the app expects the database to look like. We do this by running the command:
 
