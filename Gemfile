@@ -9,6 +9,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'jquery-turbolinks' # so that jquery is still reloaded without a page refresh
+gem 'sqlite3'
 
 group :development, :test do
   gem 'byebug'
@@ -36,11 +37,9 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'rspec-rails'
-  gem 'mysql2'
 end
 
 group :production do
-  gem 'pg'
   gem 'rails_12factor'
 end
 
