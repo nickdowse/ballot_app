@@ -19,7 +19,7 @@ Then `cd` into the ballot_app folder (the app folder) and run the bundle install
 
     `bundle install`
 
-If that throws a `bundle: command not found` error then you first need to install bundler: `gem install bundLer`. Once that's done run the `bundle install` command.
+If that throws a `bundle: command not found` error then you first need to install bundler: `gem install bundle`. Once that's done run the `bundle install` command.
 
 After the `bundle install` command has finished running, install mailcatcher so that the app's account confirmation emails work when we are developing locally:
 
