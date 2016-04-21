@@ -12,7 +12,6 @@
   .field.form-group
     = f.label :description
     = f.text_area :description, class: "form-control"
-    = f.hidden_field :created_by, value: current_user.id
   .field.form-group
     = f.label :end_date
     = f.date_select(:end_date, :order => [:day, :month, :year])

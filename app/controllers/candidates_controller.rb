@@ -4,7 +4,6 @@ class CandidatesController < ApplicationController
   before_action :set_candidate, only: [:show, :edit, :update, :destroy, :remove_candidate]
   before_action :validate_organisation, only: [:show, :edit, :update, :destroy, :remove_candidate]
 
-  respond_to :html
 
   def index
     if @election.present?

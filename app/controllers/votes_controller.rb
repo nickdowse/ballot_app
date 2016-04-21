@@ -2,8 +2,6 @@ class VotesController < ApplicationController
   before_action :set_election
   before_action :set_vote, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html, :js
-
   def index
     @votes = @election.votes.all
   end
@@ -19,12 +17,12 @@ class VotesController < ApplicationController
     @vote = Vote.new(vote_params)
     @vote.organisation_id = current_organisation.id
     @vote.election_id = @election.id
-    @vote.user_id = current_user.id
+    @vote.user_id = current_organisation.users.last
     @vote.value = 1
     if @vote.save
       flash[:notice] = "Your vote has been recorded"
     else
-      flash[:error] = "Sorry, your vote was not saved."
+      flash[:error] = "Sorry, your vote could not be saved."
     end
     respond_with(current_organisation, @election)
   end

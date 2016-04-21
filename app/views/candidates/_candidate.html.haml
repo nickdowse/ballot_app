@@ -8,13 +8,12 @@
       .col-md-4.text-left
         = image_tag candidate.avatar.present? ? candidate.avatar.url(:square) : 'candidate_placeholder.jpg'
 
-    - if current_organisation.is_admin?(current_user)
-      .row
-        .col-md-12.text-left
-          .btn-group.btn-group-xs{:role =>"group"}
-            %button.btn.btn-default{:type => "button"}= link_to 'Edit', edit_organisation_candidate_path(current_organisation, candidate)
-            %button.btn.btn-default{:type => "button"}= link_to 'Delete', organisation_candidate_path(current_organisation, candidate), :method => :delete, :data => { :confirm => 'Are you sure?' }
-    - if current_organisation.is_admin?(current_user) && !@election
+    .row
+      .col-md-12.text-left
+        .btn-group.btn-group-xs{:role =>"group"}
+          %button.btn.btn-default{:type => "button"}= link_to 'Edit', edit_organisation_candidate_path(current_organisation, candidate)
+          %button.btn.btn-default{:type => "button"}= link_to 'Delete', organisation_candidate_path(current_organisation, candidate), :method => :delete, :data => { :confirm => 'Are you sure?' }
+    - if !@election
       .row
         .col-md-12.text-left
           - if candidate.elections.count == 0

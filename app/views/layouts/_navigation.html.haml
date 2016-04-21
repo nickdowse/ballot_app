@@ -11,31 +11,15 @@
       %ul.nav.navbar-nav.left
         -# add navigation links to this file
         %li= link_to 'BallotApp', root_path
-        - if user_signed_in?
+        - if current_organisation.present?
           %li= link_to 'Elections', organisation_elections_path(current_organisation)
-      %ul.nav.navbar-nav.pull-right
-        - if user_signed_in?
-          - if current_organisation.is_admin?(current_user)
-            %li.dropdown
-              %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
-                Organisation
-                %span.caret
-              %ul.dropdown-menu
-                %li= link_to 'Manage Organisation', organisation_path(current_organisation)
-                %li= link_to 'Elections', organisation_elections_path(current_organisation)
-                %li= link_to 'Candidates', organisation_candidates_path(current_organisation)
+      - if current_organisation.present?
+        %ul.nav.navbar-nav.pull-right
           %li.dropdown
             %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
-              = "#{current_user.email}"
+              Organisation
               %span.caret
             %ul.dropdown-menu
-              %li
-                = link_to 'Account settings', edit_user_registration_path
-              %li.divider{:role => "separator"}
-              %li
-                = link_to 'Sign out', destroy_user_session_path, :method=>'delete'
-
-        - else
-          %li= link_to 'Sign in', new_user_session_path
-          %li= link_to 'Sign up', new_user_registration_path
-        
+              %li= link_to 'Manage Organisation', organisation_path(current_organisation)
+              %li= link_to 'Elections', organisation_elections_path(current_organisation)
+              %li= link_to 'Candidates', organisation_candidates_path(current_organisation)
