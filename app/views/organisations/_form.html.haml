@@ -1,9 +1,9 @@
-= form_for @organisation do |f|
-  - if @organisation.errors.any?
+= form_for current_organisation do |f|
+  - if current_organisation.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@organisation.errors.count, "error")} prohibited this organisation from being saved:"
+      %h2= "#{pluralize(current_organisation.errors.count, "error")} prohibited this organisation from being saved:"
       %ul
-        - @organisation.errors.full_messages.each do |msg|
+        - current_organisation.errors.full_messages.each do |msg|
           %li= msg
 
   .field.form-group

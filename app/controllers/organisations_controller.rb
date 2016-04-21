@@ -1,5 +1,4 @@
 class OrganisationsController < ApplicationController
-  before_action :set_organisation, only: [:show, :edit, :update, :destroy]
 
   def index
     @organisations = Organisation.all
@@ -21,11 +20,12 @@ class OrganisationsController < ApplicationController
   end
 
   def update
-    if @organisation.update(organisation_params)
+    if current_organisation.update(organisation_params)
       flash[:notice] = 'Organisation was successfully updated.'
     else
       flash[:error] = 'Organisation could not be updated.'
     end
+    redirect_to organisation_path(current_organisation)
   end
 
   def users
@@ -33,13 +33,10 @@ class OrganisationsController < ApplicationController
   end
 
   def destroy
-    @organisation.destroy
+    current_organisation.destroy
   end
 
   private
-    def set_organisation
-      @organisation = Organisation.find(params[:id])
-    end
 
     def organisation_params
       params.require(:organisation).permit(:name)
