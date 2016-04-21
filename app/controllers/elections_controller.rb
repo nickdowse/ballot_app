@@ -1,5 +1,5 @@
 class ElectionsController < ApplicationController
-  before_action :set_election, only: [:show, :edit, :update, :destroy, :results, :candidates]
+  before_action :set_election, except: [:index]
   before_action :find_elections, only: [:index]
 
   def index
