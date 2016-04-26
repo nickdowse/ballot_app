@@ -60,7 +60,6 @@ class ElectionsController < ApplicationController
     # finds the current election
     def set_election
       @election = current_organisation.elections.find(params[:id])
-      redirect_to :back if @election.end_date < Time.now
     end
 
     def find_elections
