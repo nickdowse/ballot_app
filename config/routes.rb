@@ -11,7 +11,11 @@ Rails.application.routes.draw do
       member do
         get :results
       end
+      collection do
+        get :show_election_history
+      end
     end
+
     resources :candidates
   end
 

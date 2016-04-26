@@ -1,5 +1,5 @@
 class ElectionsController < ApplicationController
-  before_action :set_election, except: [:index]
+  before_action :set_election, except: [:index, :show_election_history, :new, :create]
   before_action :find_elections, only: [:index]
 
   def index
@@ -14,6 +14,11 @@ class ElectionsController < ApplicationController
   end
 
   def edit
+  end
+
+  def show_election_history
+    @all_elections = current_organisation.elections
+    puts "Showing election history!"
   end
 
   def create
@@ -50,13 +55,9 @@ class ElectionsController < ApplicationController
     @leader = @election.candidates[results.index(@winning_vote_count)]
   end
 
-  def candidates
-    @candidates = @election.candidates
-  end
-
-
   private
 
+    # finds the current election
     def set_election
       @election = current_organisation.elections.find(params[:id])
       redirect_to :back if @election.end_date < Time.now

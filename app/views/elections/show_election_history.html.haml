@@ -1,0 +1,9 @@
+%p Showing election history
+
+
+
+- @all_elections.each do |election|
+  %h4= election.title
+  %p= "Created at #{election.created_at.to_formatted_s(:short)}."
+  %p= election.end_date.to_formatted_s(:short)
+  %p= election.description
